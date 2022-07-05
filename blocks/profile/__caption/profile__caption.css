@@ -1,0 +1,5 @@
+.profile__caption {
+    display: flex;
+    place-items: baseline;
+    flex-direction: row;
+}
