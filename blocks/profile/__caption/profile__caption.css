@@ -2,4 +2,13 @@
     display: flex;
     place-items: baseline;
     flex-direction: row;
+    margin: 0 0 6px;
+}
+
+@media screen and (max-width: 645px) {
+    .profile__caption {
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
 }

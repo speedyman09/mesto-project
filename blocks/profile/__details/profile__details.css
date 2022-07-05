@@ -1,3 +1,12 @@
 .profile__details {
-    margin: 10px auto 0 30px;
+    margin: 0 auto 0 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 645px) {
+    .profile__details {
+        place-self: center;
+
+    }
 }

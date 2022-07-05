@@ -9,3 +9,7 @@
     cursor: pointer;
     align-self: center;
 }
+.profile__add-button:hover {
+    opacity: 60%;
+    transition-duration: .3s;
+}
