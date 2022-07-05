@@ -17,3 +17,9 @@
         justify-content: center;
     }
 }
+@media screen and (max-width: 645px) {
+    .cards {
+        grid-template-columns: repeat(1, 282px);
+        grid-template-rows: repeat(6, 361px);
+    }
+}
