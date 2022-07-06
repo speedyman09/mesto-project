@@ -6,7 +6,11 @@
 
 @media screen and (max-width: 645px) {
     .profile__details {
-        place-self: center;
-
+        margin: 22px auto 30px;
+        max-width: 100%;
+        width: 282px;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
     }
 }

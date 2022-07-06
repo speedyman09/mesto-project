@@ -13,3 +13,10 @@
     opacity: 60%;
     transition-duration: .3s;
 }
+
+@media screen and (max-width: 645px) {
+    .profile__add-button {
+        width: 282px;
+        background: url("../../../images/big-add-button.svg") no-repeat center;
+    }
+}
