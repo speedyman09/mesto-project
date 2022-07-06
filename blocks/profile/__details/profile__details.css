@@ -2,6 +2,7 @@
     margin: 0 auto 0 30px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 @media screen and (max-width: 645px) {

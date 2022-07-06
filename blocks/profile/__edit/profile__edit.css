@@ -8,10 +8,12 @@
     padding: 0;
     border: 1px solid #FFFFFF;
 }
+
 .profile__edit:hover {
     opacity: 60%;
     transition-duration: .3s;
 }
+
 @media screen and (max-width: 645px) {
     .profile__edit {
         width: 18px;
