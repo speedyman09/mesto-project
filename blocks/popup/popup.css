@@ -2,7 +2,6 @@
     padding: 34px 36px 37px;
     position: relative;
     width: 430px;
-    height: 330px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -18,6 +17,5 @@
     .popup {
         padding: 25px 22px 25px;
         width: 282px;
-        height: 322px;
     }
 }
