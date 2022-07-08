@@ -9,6 +9,7 @@
     overflow: hidden;
     margin-block-start: 0;
     margin-block-end: 0;
+    max-width: 336px;
 }
 
 @media screen and (max-width: 645px) {
