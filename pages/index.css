@@ -36,6 +36,17 @@
 @import url(../blocks/popup/__save-button/popup__save-button.css);
 @import url(../blocks/popup/__title/popup__title.css);
 
+@import url(../blocks/addOverlay/addOverlay.css);
+@import url(../blocks/addOverlay/_opened/addOverlay_opened.css);
+@import url(../blocks/addPopup/__title/addPopup__title.css);
+@import url(../blocks/addPopup/addPopup.css);
+@import url(../blocks/addPopup/__exit/addPopup__exit.css);
+@import url(../blocks/addPopup/__form/addPopup__form.css);
+@import url(../blocks/addPopup/__save-button/addPopup__save-button.css);
+
+
+
+
 
 
 

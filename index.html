@@ -74,22 +74,41 @@
     <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="overlay overlay_opened">
+    <div class="overlay">
         <div class="popup">
             <button class="popup__exit" type="button" aria-label="Закрыть"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__form" action="#" name="overlay-form" novalidate="">
-                <input class="popup__form-input" type="text"
-                       name="input-name" placeholder="Имя" value="Жак-Ив Кусто" minlength="2" maxlength="30"
+                <input class="popup__form-input" type="text" id="editForm1"
+                       name="input-name" placeholder="Имя" value="#" minlength="2" maxlength="30"
                        required=""/>
-                <input class="popup__form-input" type="text" name="input-description" placeholder="Вид деятельности"
-                       value="Исследователь океана" minlength="5"
+                <input class="popup__form-input" type="text" id="editForm2" name="input-description" placeholder="Вид деятельности"
+                       value="#" minlength="5"
                        maxlength="100" required=""/>
                 <button class="popup__save-button" type="submit">Сохранить</button>
             </form>
         </div>
 
     </div>
+    <div class="addOverlay">
+        <div class="addPopup">
+            <button class="addPopup__exit" type="button" aria-label="Закрыть"></button>
+            <h2 class="addPopup__title">Новое место</h2>
+            <form class="addPopup__form" action="#" name="overlay-form" novalidate="">
+                <input class="popup__form-input" type="text" id="addForm1"
+                       name="input-name" placeholder="Название" value="" minlength="2" maxlength="30"
+                       required=""/>
+                <input class="popup__form-input" type="text" id="addForm2" name="input-description" placeholder="Ссылка на картинку"
+                       value="" minlength="5"
+                       maxlength="100" required=""/>
+                <button class="addPopup__save-button" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
 </div>
+
+
+<script src="scripts/index.js"></script>
+
 </body>
 </html>
