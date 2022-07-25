@@ -1,0 +1,13 @@
+.cards__delete {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    border: none;
+    outline: none;
+    width: 18px;
+    height: 19px;
+    cursor: pointer;
+    background: url(../../../images/Group.svg) transparent no-repeat;
+    top: 20px;
+    right: 20px;
+}

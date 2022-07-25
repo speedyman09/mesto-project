@@ -1,5 +1,5 @@
 .addOverlay_opened {
     visibility: unset;
     opacity: 1;
-    transition: visibility .20s, opacity .5s linear;
+  /*  transition: visibility .20s, opacity .5s linear;*/
 }

@@ -1,0 +1,23 @@
+.imagePopup__exit {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    border: none;
+    outline: none;
+    width: 40px;
+    height: 40px;
+    top: -40px;
+    right: -45px;
+    cursor: pointer;
+    background: url(../../../images/close.svg) transparent no-repeat;
+}
+
+@media screen and (max-width: 1070px) {
+    .imagePopup__exit {
+        background: url(../../../images/close-icon-small.svg);
+        max-width: 20px;
+        max-height: 20px;
+        top: -36px;
+        right: 0;
+    }
+}

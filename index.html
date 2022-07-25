@@ -27,48 +27,16 @@
             <button class="profile__add-button" type="button" aria-label="Добавить"></button>
         </section>
         <section class="cards">
-            <article class="cards__card">
-                <img class="cards__image" src="images/kirill-pershin-1088404-unsplash_castle.jpg" alt="Карачаевск">
-                <div class="card__description">
-                    <h2 class="cards__text">Карачаевск</h2>
-                    <button class="cards__like cards__like_liked" type="button"></button>
-                </div>
-            </article>
-            <article class="cards__card">
-                <img class="cards__image" src="images/kirill-pershin-1404681-unsplash_desert.jpg" alt="Гора Эльбрус">
-                <div class="card__description">
-                    <h2 class="cards__text">Гора Эльбрус</h2>
-                    <button class="cards__like" type="button"></button>
-                </div>
-            </article>
-            <article class="cards__card">
-                <img class="cards__image" src="images/kirill-pershin-1556355-unsplash_mountains.jpg" alt="Домбай">
-                <div class="card__description">
-                    <h2 class="cards__text">Домбай</h2>
-                    <button class="cards__like cards__like_liked" type="button"></button>
-                </div>
-            </article>
-            <article class="cards__card">
-                <img class="cards__image" src="images/kirill-pershin-1404681-unsplash_desert.jpg" alt="Гора Эльбрус">
-                <div class="card__description">
-                    <h2 class="cards__text">Гора Эльбрус</h2>
-                    <button class="cards__like" type="button"></button>
-                </div>
-            </article>
-            <article class="cards__card">
-                <img class="cards__image" src="images/kirill-pershin-1556355-unsplash_mountains.jpg" alt="Домбай">
-                <div class="card__description">
-                    <h2 class="cards__text">Домбай</h2>
-                    <button class="cards__like" type="button"></button>
-                </div>
-            </article>
-            <article class="cards__card">
-                <img class="cards__image" src="images/kirill-pershin-1088404-unsplash_castle.jpg" alt="Карачаевск">
-                <div class="card__description">
-                    <h2 class="cards__text">Карачаево-Ч...</h2>
-                    <button class="cards__like" type="button"></button>
-                </div>
-            </article>
+            <template class="card-template">
+             <article class="cards__card">
+                    <button class="cards__delete" type="button" aria-label="Удалить"></button>
+                    <img class="cards__image" src="images/kirill-pershin-1088404-unsplash_castle.jpg" alt="Карачаевск">
+                    <div class="card__description">
+                       <h2 class="cards__text"></h2>
+                       <button class="cards__like" type="button"></button>
+                    </div>
+              </article>
+            </template>
         </section>
     </main>
     <footer class="footer">
@@ -94,15 +62,22 @@
         <div class="addPopup">
             <button class="addPopup__exit" type="button" aria-label="Закрыть"></button>
             <h2 class="addPopup__title">Новое место</h2>
-            <form class="addPopup__form" action="#" name="overlay-form" novalidate="">
+            <form class="addPopup__form" action="#" name="overlay-form" novalidate="" id="addForm">
                 <input class="popup__form-input" type="text" id="addForm1"
-                       name="input-name" placeholder="Название" value="" minlength="2" maxlength="30"
+                       name="input-title" placeholder="Название" value="" minlength="2" maxlength="30"
                        required=""/>
-                <input class="popup__form-input" type="text" id="addForm2" name="input-description" placeholder="Ссылка на картинку"
+                <input class="popup__form-input" type="text" id="addForm2" name="input-link" placeholder="Ссылка на картинку"
                        value="" minlength="5"
                        maxlength="100" required=""/>
                 <button class="addPopup__save-button" type="submit">Сохранить</button>
             </form>
+        </div>
+    </div>
+    <div class="imageOverlay">
+        <div class="imagePopup">
+            <button class="imagePopup__exit" type="button"></button>
+            <img class="imagePopup__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' alt=''>
+            <p class="imagePopup__text">Placeholder</p>
         </div>
     </div>
 </div>
