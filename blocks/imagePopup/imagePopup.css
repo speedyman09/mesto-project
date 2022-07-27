@@ -1,6 +1,3 @@
 .imagePopup {
-    color: white;
-    max-width: 75vw;
-    max-height: 75vh;
-    position: relative;
+    background: rgba(0, 0, 0, .9);
 }

@@ -1,7 +1,9 @@
 .imagePopup__image {
-
+    max-width: 75vw;
+    max-height: 75vh;
 }
 
+/*
 @media screen and (max-width: 1070px) {
     .imagePopup__image {
         max-height: 500px;
@@ -14,4 +16,4 @@
         max-height: 299px;
         max-width: 240px;
     }
-}
+}*/

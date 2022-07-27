@@ -1,4 +1,11 @@
 .cards__image {
     width: 282px;
     height: 282px;
+    cursor: pointer;
+    transition: opacity .1s ease-in-out;
+}
+
+.cards__image:hover {
+    opacity: .8;
+    transition: border .1s ease-in-out;
 }

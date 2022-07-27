@@ -10,4 +10,9 @@
     background: url(../../../images/Group.svg) transparent no-repeat;
     top: 20px;
     right: 20px;
+    z-index: 2;
+    transition: opacity .1s ease-in-out;
+}
+.cards__delete:hover {
+    opacity: 0.8;
 }
