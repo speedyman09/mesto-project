@@ -1,3 +1,6 @@
+/* add css in webpack */ 
+import './../pages/index.css';
+
 /* add DOM elements into JS */
 const popupExit = document.querySelector('.popup__exit');
 const profilePopup = document.querySelector('.popup');
