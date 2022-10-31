@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
+
 module.exports = {
     entry: { main: './src/scripts/index.js'},
     output: {
@@ -45,9 +45,7 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin(),
-        // TODO: figure out how to initialize these plugins:
-        // autoprefixer,
-        // cssnano({ preset: 'default' })
-
+        autoprefixer,
+        
     ]
 };
