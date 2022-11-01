@@ -31,10 +31,13 @@ import {openPopup,closePopup} from './modal';
 import {editProfileSubmitter} from './utils';
 import { placeFormObj, userFormObj } from './variables';
 import { validateForm, prepareOnOpen } from './validate';
+import { popupClosing } from './modal';
+
 
 validateForm(userFormObj);
 
 validateForm(placeFormObj);
+
 imagePopupExit.addEventListener('click', () => {
     closePopup(imagePopup);
 })
@@ -63,6 +66,31 @@ profileAddButton.addEventListener('click', () => {
 });
 
 document.querySelector("#addForm").addEventListener("submit", addCard);
+
+document.querySelector('.popup').addEventListener('mousedown', (evt) => {
+    if (document.querySelector('.popup_opened')) {
+        popupClosing(evt);
+    }
+});
+
+document.querySelector('.addPopup').addEventListener('mousedown', (evt) => {
+    if (document.querySelector('.popup_opened')) {
+        popupClosing(evt);
+    }
+});
+
+
+window.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+        popupClosing(evt);
+    }
+});
+
+imagePopup.addEventListener('mousedown', (evt) => {
+    if (document.querySelector('.popup_opened')) {
+        popupClosing(evt);
+    }
+});
 
 
 

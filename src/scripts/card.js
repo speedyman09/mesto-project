@@ -1,4 +1,4 @@
-import { cardsContainer, initialCards, cardTemplate, cardInputName, cardInputLink, cardPopup } from "./variables";
+import { cardsContainer, initialCards, cardTemplate, cardInputName, cardInputLink, cardPopup, imagePopup, imagePopupImage, imagePopupText } from "./variables";
 import { openPopup, closePopup } from "./modal";
 const createCard = (item) => {
     const card = cardTemplate.cloneNode(true);
