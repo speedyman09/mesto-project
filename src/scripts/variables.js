@@ -45,6 +45,19 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+
+const userFormObj = {
+    formName: 'user-form',
+    submitButtonSelector: '.popup__save-button',
+    inputSelector: '.popup__form-input',
+  };
+
+  const placeFormObj = {
+    formName: 'place-form',
+    submitButtonSelector: '.addPopup__save-button',
+    inputSelector: '.popup__form-input',
+  };
+
 export {
     popupExit,
     profilePopup,
@@ -67,5 +80,7 @@ export {
     imagePopupText,
     imagePopupImage,
     imagePopupExit,
-    initialCards
+    initialCards,
+    userFormObj,
+    placeFormObj
 }

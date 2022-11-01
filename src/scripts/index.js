@@ -29,8 +29,12 @@ import {
 } from './card';
 import {openPopup,closePopup} from './modal';
 import {editProfileSubmitter} from './utils';
-// event listeners
+import { placeFormObj, userFormObj } from './variables';
+import { validateForm, prepareOnOpen } from './validate';
 
+validateForm(userFormObj);
+
+validateForm(placeFormObj);
 imagePopupExit.addEventListener('click', () => {
     closePopup(imagePopup);
 })
@@ -41,6 +45,7 @@ profileEditButton.addEventListener('click', () => {
     profilePopupName.value = profileName.textContent;
     profilePopupBio.value = profileBio.textContent;
     openPopup(profilePopup);
+    prepareOnOpen(userFormObj);
     }
 );
 
@@ -54,6 +59,7 @@ cardPopupExit.addEventListener('click', () => {
 })
 profileAddButton.addEventListener('click', () => {
     openPopup(cardPopup);
+    prepareOnOpen(placeFormObj);
 });
 
 document.querySelector("#addForm").addEventListener("submit", addCard);
