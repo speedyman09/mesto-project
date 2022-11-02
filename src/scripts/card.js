@@ -1,5 +1,5 @@
 import { cardsContainer, initialCards, cardTemplate, cardInputName, cardInputLink, cardPopup, imagePopup, imagePopupImage, imagePopupText } from "./variables";
-import { openPopup, closePopup } from "./modal";
+import { openPopup, closePopup, closeByEscape } from "./modal";
 const createCard = (item) => {
     const card = cardTemplate.cloneNode(true);
     const image = card.querySelector('.cards__image');
@@ -22,6 +22,7 @@ const createCard = (item) => {
         imagePopupImage.src = item.link;
         imagePopupImage.alt = item.name;
         imagePopupText.textContent = item.name;
+        window.addEventListener('keydown', closeByEscape);
     })
     return card;
 }

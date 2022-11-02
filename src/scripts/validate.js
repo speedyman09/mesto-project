@@ -25,7 +25,8 @@ function changeButtonState(elem, state) {
   }
   
   function changeErrorState(input) {
-    let errorElem = document.querySelector(`#${input.name}-error`);
+    //let
+    const errorElem = document.querySelector(`#${input.name}-error`);
     const stateObj = isInputValid(input);
     if (!stateObj.state) {
       errorElem.classList.add(errorElem.dataset.onerror);
@@ -64,8 +65,8 @@ function changeButtonState(elem, state) {
     inputs.forEach(function (input) {
       input.addEventListener('input', function (evt) {
         changeErrorState(input);
-  
-        let status = inputs.every(function (input) {
+        //let vv
+        const status = inputs.every(function (input) {
           return isInputValid(input).state;
         });
         changeButtonState(button, status);

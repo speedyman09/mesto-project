@@ -31,7 +31,7 @@ import {openPopup,closePopup} from './modal';
 import {editProfileSubmitter} from './utils';
 import { placeFormObj, userFormObj } from './variables';
 import { validateForm, prepareOnOpen } from './validate';
-import { popupClosing } from './modal';
+import { closeByEscape, closePopupChecker } from './modal';
 
 
 validateForm(userFormObj);
@@ -49,6 +49,7 @@ profileEditButton.addEventListener('click', () => {
     profilePopupBio.value = profileBio.textContent;
     openPopup(profilePopup);
     prepareOnOpen(userFormObj);
+    window.addEventListener('keydown', closeByEscape);
     }
 );
 
@@ -63,34 +64,31 @@ cardPopupExit.addEventListener('click', () => {
 profileAddButton.addEventListener('click', () => {
     openPopup(cardPopup);
     prepareOnOpen(placeFormObj);
+    window.addEventListener('keydown', closeByEscape);
 });
 
 document.querySelector("#addForm").addEventListener("submit", addCard);
 
 document.querySelector('.popup').addEventListener('mousedown', (evt) => {
     if (document.querySelector('.popup_opened')) {
-        popupClosing(evt);
+        closePopupChecker(evt);
     }
 });
 
 document.querySelector('.addPopup').addEventListener('mousedown', (evt) => {
     if (document.querySelector('.popup_opened')) {
-        popupClosing(evt);
+        closePopupChecker(evt);
     }
 });
 
 
-window.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-        popupClosing(evt);
-    }
-});
 
 imagePopup.addEventListener('mousedown', (evt) => {
     if (document.querySelector('.popup_opened')) {
-        popupClosing(evt);
+        closePopupChecker(evt);
     }
 });
+
 
 
 

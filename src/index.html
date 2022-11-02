@@ -44,7 +44,7 @@
     <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup profilePopup">
         <div class="popup__container">
             <button class="popup__exit" type="button" aria-label="Закрыть"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
@@ -64,7 +64,7 @@
     </div>
     <div class="popup addPopup">
         <div class="addPopup__container">
-            <button class="addPopup__exit" type="button" aria-label="Закрыть"></button>
+            <button class="popup__exit addPopup__exit" type="button" aria-label="Закрыть"></button>
             <h2 class="addPopup__title">Новое место</h2>
             <form class="addPopup__form" action="#" name="place-form" id="addForm">
                 <input class="popup__form-input" type="text" id="addForm1"
@@ -81,7 +81,7 @@
     </div>
     <div class="popup imagePopup">
         <div class="imagePopup__container">
-            <button class="imagePopup__exit" type="button"></button>
+            <button class="imagePopup__exit popup__exit" type="button"></button>
             <img class="imagePopup__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' alt=''>
             <p class="imagePopup__text">Placeholder</p>
         </div>
