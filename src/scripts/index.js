@@ -49,7 +49,6 @@ profileEditButton.addEventListener('click', () => {
     profilePopupBio.value = profileBio.textContent;
     openPopup(profilePopup);
     prepareOnOpen(userFormObj);
-    window.addEventListener('keydown', closeByEscape);
     }
 );
 
@@ -64,7 +63,6 @@ cardPopupExit.addEventListener('click', () => {
 profileAddButton.addEventListener('click', () => {
     openPopup(cardPopup);
     prepareOnOpen(placeFormObj);
-    window.addEventListener('keydown', closeByEscape);
 });
 
 document.querySelector("#addForm").addEventListener("submit", addCard);

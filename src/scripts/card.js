@@ -22,7 +22,6 @@ const createCard = (item) => {
         imagePopupImage.src = item.link;
         imagePopupImage.alt = item.name;
         imagePopupText.textContent = item.name;
-        window.addEventListener('keydown', closeByEscape);
     })
     return card;
 }
