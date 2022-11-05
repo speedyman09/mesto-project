@@ -1,4 +1,5 @@
 function changeButtonState(elem, state) {
+    console.log(elem,state);
     if (state) {
       elem.classList.remove(elem.dataset.disabled);
       elem.disabled = false;

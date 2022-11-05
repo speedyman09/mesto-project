@@ -21,15 +21,20 @@ import {
     imagePopup,
     imagePopupText,
     imagePopupImage,
-    imagePopupExit
+    imagePopupExit,
+    avatarPopup,
+    avatarPopupInput,
+    avatarContainer,
+    avatarPopupExit,
+    avatarPopupForm
 } from './variables';
 import {
     createCard,
     addCard
 } from './card';
 import {openPopup,closePopup} from './modal';
-import {editProfileSubmitter} from './utils';
-import { placeFormObj, userFormObj } from './variables';
+import {editProfileSubmitter, avatarSubmitter} from './utils';
+import { placeFormObj, userFormObj, avatarFormObj } from './variables';
 import { validateForm, prepareOnOpen } from './validate';
 import { closeByEscape, closePopupChecker } from './modal';
 
@@ -38,6 +43,17 @@ validateForm(userFormObj);
 
 validateForm(placeFormObj);
 
+validateForm(avatarFormObj);
+
+avatarContainer.addEventListener('click', () => {
+    openPopup(avatarPopup);
+})
+avatarPopupForm.addEventListener('submit', avatarSubmitter)
+    
+
+avatarPopupExit.addEventListener('click', () => {
+    closePopup(avatarPopup);
+})
 imagePopupExit.addEventListener('click', () => {
     closePopup(imagePopup);
 })
@@ -86,6 +102,12 @@ imagePopup.addEventListener('mousedown', (evt) => {
         closePopupChecker(evt);
     }
 });
+avatarPopup.addEventListener('mousedown', (evt) => {
+    if (document.querySelector('.popup_opened')) {
+        closePopupChecker(evt);
+    }
+});
+
 
 
 

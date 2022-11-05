@@ -3,7 +3,10 @@ import {
     profilePopupName,
     profileBio,
     profilePopupBio,
-    profilePopup
+    profilePopup,
+    avatarImage,
+    avatarPopupInput,
+    avatarPopup
 } from './variables'
 import { closePopup } from './modal';
 const editProfileSubmitter = (e) => {
@@ -12,7 +15,12 @@ const editProfileSubmitter = (e) => {
     profileBio.textContent = profilePopupBio.value;
     closePopup(profilePopup);
 }
+const avatarSubmitter = (e) => {
+    e.preventDefault();
+    avatarImage.src = avatarPopupInput.value;
+    closePopup(avatarPopup);
+}
 export {
     editProfileSubmitter,
-
+    avatarSubmitter
 }

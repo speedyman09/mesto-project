@@ -19,6 +19,13 @@ const imagePopup = document.querySelector('.imagePopup');
 const imagePopupText = document.querySelector('.imagePopup__text');
 const imagePopupImage = document.querySelector('.imagePopup__image');
 const imagePopupExit = document.querySelector('.imagePopup__exit');
+const avatarPopup = document.querySelector('.avatarPopup');
+const avatarPopupInput = document.querySelector('#avatarForm1');
+const avatarContainer = document.querySelector('.profile__avatar-container');
+const avatarPopupExit = document.querySelector('.avatarPopup__exit');
+const avatarImage = document.querySelector('.profile__avatar');
+const avatarPopupForm = document.querySelector('#avatar-form');
+
 const initialCards = [
     {
         name: 'Архыз',
@@ -50,13 +57,26 @@ const userFormObj = {
     formName: 'user-form',
     submitButtonSelector: '.popup__save-button',
     inputSelector: '.popup__form-input',
-  };
+};
 
-  const placeFormObj = {
+const placeFormObj = {
     formName: 'place-form',
     submitButtonSelector: '.addPopup__save-button',
     inputSelector: '.popup__form-input',
-  };
+};
+const avatarFormObj = {
+    formName: 'avatar-form',
+    submitButtonSelector: '.avatarPopup__save-button',
+    inputSelector: '.popup__form-input'
+}
+const config = {
+    baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
+    headers: {
+        authorization: "8f6991cb-ed06-4bec-89fd-92424de41418",
+        "Content-Type": "application/json",
+    },
+};
+  
 
 export {
     popupExit,
@@ -82,5 +102,13 @@ export {
     imagePopupExit,
     initialCards,
     userFormObj,
-    placeFormObj
+    placeFormObj,
+    config,
+    avatarFormObj,
+    avatarPopup,
+    avatarPopupInput,
+    avatarContainer,
+    avatarPopupExit,
+    avatarImage,
+    avatarPopupForm
 }

@@ -16,7 +16,9 @@
     </header>
     <main>
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="Аватарка">
+            <button class="profile__avatar-container" type="button">
+                <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="Аватарка">
+            </button>
             <div class="profile__details">
                 <div class="profile__caption">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -84,6 +86,18 @@
             <button class="imagePopup__exit popup__exit" type="button"></button>
             <img class="imagePopup__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' alt=''>
             <p class="imagePopup__text">Placeholder</p>
+        </div>
+    </div>
+    <div class="popup avatarPopup">
+        <div class="avatarPopup__container">
+            <button class="popup__exit avatarPopup__exit" type="button" aria-label="Закрыть"></button>
+            <h2 class="avatarPopup__title">Обновить аватар</h2>
+            <form class="avatarPopup__form" action="#" name="avatar-form" id="avatar-form">
+                <input class="popup__form-input" id="avatarForm1" name="input-avatar" placeholder="Ссылка на картинку" 
+                value="https://m.media-amazon.com/images/M/MV5BZDYwYzQxZWUtMDRmYS00ZDc0LTlhYWUtMGIzYjFkNDQ1ZmNlXkEyXkFqcGdeQXVyMTc4MzI2NQ@@._V1_.jpg" type="url" required="" minlength="5" maxlength="100"/>
+                <span class="popup__form-error" id="input-avatar-error" data-onerror="popup__form-error_active"></span>
+                <button class="avatarPopup__save-button" data-disabled="popup__form-input_disabled" data-default="Сохранить" type="submit">Сохранить</button>
+            </form>
         </div>
     </div>
 </div>
