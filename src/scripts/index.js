@@ -26,17 +26,49 @@ import {
     avatarPopupInput,
     avatarContainer,
     avatarPopupExit,
-    avatarPopupForm
+    avatarPopupForm,
+    avatarImage
 } from './variables';
 import {
     createCard,
     addCard
 } from './card';
 import {openPopup,closePopup} from './modal';
-import {editProfileSubmitter, avatarSubmitter} from './utils';
+import {editProfileSubmitter, avatarSubmitter, editProfile} from './utils';
 import { placeFormObj, userFormObj, avatarFormObj } from './variables';
 import { validateForm, prepareOnOpen } from './validate';
 import { closeByEscape, closePopupChecker } from './modal';
+import { getProfileInfo } from './api';
+
+const editAvatar = (avatarUrl) => {
+    avatarImage.src = avatarUrl;
+}
+Promise.all([getProfileInfo()])
+ .then((values) => {
+    console.log(values);
+    editProfile(values[0]);
+    editAvatar(values[0].avatar);
+ })
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 validateForm(userFormObj);

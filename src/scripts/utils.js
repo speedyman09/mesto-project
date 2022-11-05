@@ -6,21 +6,43 @@ import {
     profilePopup,
     avatarImage,
     avatarPopupInput,
-    avatarPopup
+    avatarPopup,
+    avatarPopupForm
 } from './variables'
 import { closePopup } from './modal';
+import { patchAvatar, patchProfile } from './api';
+const editProfile = (values) => {
+    profileName.textContent = values.name;
+    profileBio.textContent = values.about;
+}
 const editProfileSubmitter = (e) => {
     e.preventDefault();
-    profileName.textContent = profilePopupName.value;
-    profileBio.textContent = profilePopupBio.value;
-    closePopup(profilePopup);
+    patchProfile(profilePopupName, profilePopupBio)
+     .then(() => {
+        editProfile({
+            name: profilePopupName.value,
+            about: profilePopupBio.value
+        });
+        closePopup(profilePopup);
+     })
+     .catch((err) => {
+        console.error(err);
+     })
 }
 const avatarSubmitter = (e) => {
     e.preventDefault();
-    avatarImage.src = avatarPopupInput.value;
-    closePopup(avatarPopup);
+    patchAvatar(avatarPopupInput)
+     .then(() => {
+        avatarImage.src = avatarPopupInput.value;
+        closePopup(avatarPopup);
+        avatarPopupInput.value = '';
+     })
+     .catch((err) => {
+        console.log(err);
+     })
 }
 export {
     editProfileSubmitter,
-    avatarSubmitter
+    avatarSubmitter,
+    editProfile
 }

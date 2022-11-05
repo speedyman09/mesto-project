@@ -7,8 +7,8 @@
       return Promise.reject(`Ошибка: ${data.status}`);
     }
   }
-  
-  const getInfoProfile = function () {
+
+  const getProfileInfo = function () {
     return fetch(`${config.baseUrl}/users/me`, {
       method: "GET",
       headers: {
@@ -17,36 +17,40 @@
     }).then(checkData);
   };
   
-  const getDeleteLike = function (cardObj) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: config.headers.authorization,
-      },
+  const patchAvatar = function (avatarPopupInput) {
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: config.headers,
+      body: JSON.stringify({
+        avatar: avatarPopupInput.value,
+      }),
     }).then(checkData);
   };
   
-  const getLikeAdded = function (cardObj) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
-      method: "PUT",
-      headers: {
-        authorization: config.headers.authorization,
-      },
+  const patchProfile = function (profilePopupName, profilePopupBio) {
+    console.log(`${config.baseUrl}/users/me`);
+    return fetch(`${config.baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: config.headers,
+      body: JSON.stringify({
+        name: profilePopupName.value,
+        about: profilePopupBio.value,
+      }),
     }).then(checkData);
   };
-  
-  const getCardRemoved = function (cardObj) {
-    return fetch(`${config.baseUrl}/cards/${cardObj._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: config.headers.authorization,
-      },
-    }).then(checkData);
-  };
-  
+
   const initialCards = function () {
     return fetch(`${config.baseUrl}/cards`, {
       method: "GET",
+      headers: {
+        authorization: config.headers.authorization,
+      },
+    }).then(checkData);
+  };
+
+  const getRemovedCard = function (cardObj) {
+    return fetch(`${config.baseUrl}/cards/${cardObj._id}`, {
+      method: "DELETE",
       headers: {
         authorization: config.headers.authorization,
       },
@@ -64,28 +68,32 @@
     }).then(checkData);
   };
   
-  const patchAvatar = function (avatarImageInput) {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
-      method: "PATCH",
-      headers: config.headers,
-      body: JSON.stringify({
-        avatar: avatarImageInput.value,
-      }),
+  const getLikeDelete = function (cardObj) {
+    return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: config.headers.authorization,
+      },
     }).then(checkData);
   };
   
-  const patchProfile = function (personNameInput, personAboutInput) {
-    return fetch(`${config.baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: config.headers,
-      body: JSON.stringify({
-        name: personNameInput.value,
-        about: personAboutInput.value,
-      }),
+  const getAddedLike = function (cardObj) {
+    return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
+      method: "PUT",
+      headers: {
+        authorization: config.headers.authorization,
+      },
     }).then(checkData);
   };
   
   export {
-
+    getProfileInfo,
+    getLikeDelete,
+    getAddedLike,
+    getRemovedCard,
+    initialCards,
+    postCard,
+    patchAvatar,
+    patchProfile
   };
   
