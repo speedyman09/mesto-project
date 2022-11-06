@@ -27,7 +27,7 @@ import {
     avatarContainer,
     avatarPopupExit,
     avatarPopupForm,
-    avatarImage
+    avatarImage,
 } from './variables';
 import {
     createCard,
@@ -38,38 +38,24 @@ import {editProfileSubmitter, avatarSubmitter, editProfile} from './utils';
 import { placeFormObj, userFormObj, avatarFormObj } from './variables';
 import { validateForm, prepareOnOpen } from './validate';
 import { closeByEscape, closePopupChecker } from './modal';
-import { getProfileInfo } from './api';
+import { getProfileInfo, initialCards } from './api';
 
 const editAvatar = (avatarUrl) => {
     avatarImage.src = avatarUrl;
 }
-Promise.all([getProfileInfo()])
+Promise.all([getProfileInfo(), initialCards()])
  .then((values) => {
-    console.log(values);
     editProfile(values[0]);
+    localStorage.setItem("me_id", values[0]._id);
     editAvatar(values[0].avatar);
- })
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    values[1].forEach(function (cardObj) {
+        const card = createCard(cardObj);
+        cardsContainer.append(card);
+      });
+    })
+    .catch((err) => {
+        console.error(err);
+    });
 
 validateForm(userFormObj);
 
@@ -79,16 +65,17 @@ validateForm(avatarFormObj);
 
 avatarContainer.addEventListener('click', () => {
     openPopup(avatarPopup);
-})
-avatarPopupForm.addEventListener('submit', avatarSubmitter)
+    avatarPopupInput.value = avatarImage.src;
+});
+avatarPopupForm.addEventListener('submit', avatarSubmitter);
     
 
 avatarPopupExit.addEventListener('click', () => {
     closePopup(avatarPopup);
-})
+});
 imagePopupExit.addEventListener('click', () => {
     closePopup(imagePopup);
-})
+});
 
 document.querySelector('#editForm').addEventListener('submit', editProfileSubmitter);
 
@@ -107,7 +94,7 @@ popupExit.addEventListener('click', () => {
 
 cardPopupExit.addEventListener('click', () => {
     closePopup(cardPopup);
-})
+});
 profileAddButton.addEventListener('click', () => {
     openPopup(cardPopup);
     prepareOnOpen(placeFormObj);

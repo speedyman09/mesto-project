@@ -1,4 +1,4 @@
-  import {config} from './variables';
+  import {config,cardInputLink,cardInputName} from './variables';
 
   function checkData(data) {
     if (data.ok) {
@@ -28,7 +28,6 @@
   };
   
   const patchProfile = function (profilePopupName, profilePopupBio) {
-    console.log(`${config.baseUrl}/users/me`);
     return fetch(`${config.baseUrl}/users/me`, {
       method: "PATCH",
       headers: config.headers,
@@ -48,8 +47,8 @@
     }).then(checkData);
   };
 
-  const getRemovedCard = function (cardObj) {
-    return fetch(`${config.baseUrl}/cards/${cardObj._id}`, {
+  const deleteRemovedCard = function (id) {
+    return fetch(`${config.baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: {
         authorization: config.headers.authorization,
@@ -57,18 +56,18 @@
     }).then(checkData);
   };
   
-  const postCard = function (pictureNameInput, pictureLinkInput) {
+  const postCard = function (cardInputName, cardInputLink) {
     return fetch(`${config.baseUrl}/cards`, {
       method: "POST",
       headers: config.headers,
       body: JSON.stringify({
-        name: pictureNameInput.value,
-        link: pictureLinkInput.value,
+        name: cardInputName.value,
+        link: cardInputLink.value,
       }),
     }).then(checkData);
   };
   
-  const getLikeDelete = function (cardObj) {
+  const deleteLike = function (cardObj) {
     return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
       method: "DELETE",
       headers: {
@@ -77,7 +76,7 @@
     }).then(checkData);
   };
   
-  const getAddedLike = function (cardObj) {
+  const putLike = function (cardObj) {
     return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
       method: "PUT",
       headers: {
@@ -88,9 +87,9 @@
   
   export {
     getProfileInfo,
-    getLikeDelete,
-    getAddedLike,
-    getRemovedCard,
+    deleteLike,
+    putLike,
+    deleteRemovedCard,
     initialCards,
     postCard,
     patchAvatar,
