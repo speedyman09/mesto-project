@@ -11,10 +11,7 @@ import {
 } from './variables'
 import { closePopup } from './modal';
 import { patchAvatar, patchProfile } from './api';
-const editProfile = (values) => {
-    profileName.textContent = values.name;
-    profileBio.textContent = values.about;
-}
+import {editProfile} from './index';
 const editProfileSubmitter = (e) => {
     e.preventDefault();
     patchProfile(profilePopupName, profilePopupBio)
@@ -44,5 +41,4 @@ const avatarSubmitter = (e) => {
 export {
     editProfileSubmitter,
     avatarSubmitter,
-    editProfile
 }

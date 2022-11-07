@@ -1,11 +1,11 @@
 import { cardsContainer, cardTemplate, cardInputName, cardInputLink, cardPopup, imagePopup, imagePopupImage, imagePopupText } from "./variables";
-import { initialCards } from "./variables";
+import { initialCards,card } from "./variables";
 import { openPopup, closePopup, closeByEscape } from "./modal";
 import { postCard, deleteRemovedCard, getProfileInfo, deleteLike, putLike} from "./api";
-
+import { removeCard,cardToServer} from './index';
 const createCard = (item) => {
     const card = cardTemplate.cloneNode(true);
-    card.querySelector('.cards__card').dataset.id = item._id;
+    card.dataset.id = item._id;
     const image = card.querySelector('.cards__image');
     const like = card.querySelector('.cards__like');
     const title = card.querySelector('.cards__text');
@@ -23,23 +23,17 @@ const createCard = (item) => {
     if (localStorage.getItem("me_id") == item.owner._id) {
         deleteButton.addEventListener("click", (e) => {
         const card = e.target.closest('.cards__card');
-        deleteRemovedCard(card.dataset.id)
-        .then(() => {
-            card.remove();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        removeCard(card);
         });
     } else {
         deleteButton.remove();
     }
 
     image.addEventListener('click', () => {
-        openPopup(imagePopup);
         imagePopupImage.src = item.link;
         imagePopupImage.alt = item.name;
         imagePopupText.textContent = item.name;
+        openPopup(imagePopup);
     });
 
     likeNumber.textContent = item.likes.length;
@@ -55,21 +49,22 @@ const createCard = (item) => {
     like.addEventListener("click", () => {
         likedByMe
           ? 
-          deleteLike(item).then(
-            (item) => {
-                like.classList.remove('cards__like_liked');
-                likeNumber.textContent = item.likes.length;
-                likedByMe = !likedByMe;
-            }
-          )
-        : putLike(item).then(
-            (item) => {
-                like.classList.add('cards__like_liked');
-                likeNumber.textContent = item.likes.length;
-                likedByMe = !likedByMe;
-            }
-          )
-      });
+          deleteLike(item)
+          .then((item) => {
+            like.classList.remove('cards__like_liked');
+            likeNumber.textContent = item.likes.length;
+            likedByMe = !likedByMe;
+        })
+        : putLike(item)
+        .then((item) => {
+            like.classList.add('cards__like_liked');
+            likeNumber.textContent = item.likes.length;
+            likedByMe = !likedByMe;
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+    });
 
     return card;
 }
@@ -84,14 +79,15 @@ const addCard = (e) => {
         link: cardInputLink.value,
     };
     // e.target.reset();
-    postCard(cardInputName, cardInputLink)
-     .then(
-        (item) => {
-            const card = createCard(item);
-            cardsContainer.prepend(card);
-        }
-     );
-    closePopup(cardPopup);
+    // postCard(cardInputName, cardInputLink)
+    //  .then(
+    //     (item) => {
+    //         const card = createCard(item);
+    //         cardsContainer.prepend(card);
+    //     }
+    //  );
+    cardToServer(cardInputName, cardInputLink);
+    setTimeout(() => { closePopup(cardPopup) }, 500);
 };
   
 export {

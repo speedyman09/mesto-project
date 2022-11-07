@@ -56,11 +56,11 @@
             <form class="popup__form" action="#" name="user-form" id="editForm">
                 <input class="popup__form-input" type="text" id="editForm1"
                        name="user-name" placeholder="Имя" value="#" minlength="2" maxlength="30"
-                       required=""/>
+                       required="" pattern="^[A-Za-zА-Яа-яЁё\-\s]+$" data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"/>
                 <span class="popup__form-error" id="user-name-error" data-onerror="popup__form-error_active">asdsdad</span>
                 <input class="popup__form-input" type="text" id="editForm2" name="input-description" placeholder="Вид деятельности"
                        value="#" minlength="5"
-                       maxlength="100" required=""/>
+                       maxlength="100" required="" pattern="^[A-Za-zА-Яа-яЁё\-\s]+$" data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"/>
                 <span class="popup__form-error" id="input-description-error" data-onerror="popup__form-error_active">asdsdad</span>
                 <button class="popup__save-button" data-disabled="popup__form-input_disabled" data-default="Сохранить" type="submit">Сохранить</button>
             </form>
@@ -74,11 +74,11 @@
             <form class="addPopup__form" action="#" name="place-form" id="addForm">
                 <input class="popup__form-input" type="text" id="addForm1"
                        name="input-title" placeholder="Название" value="" minlength="2" maxlength="30"
-                       required=""/>
+                       required="" pattern="^[A-Za-zА-Яа-яЁё\-\s]+$" data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"/>
                 <span class="popup__form-error" id="input-title-error" data-onerror="popup__form-error_active">asdsdad</span>
                 <input class="popup__form-input" type="url" id="addForm2" name="input-link" placeholder="Ссылка на картинку"
                        value="" minlength="5"
-                       maxlength="100" required=""/>
+                       maxlength="600" required=""/>
                 <span class="popup__form-error" id="input-link-error" data-onerror="popup__form-error_active">sadsadas</span>
                 <button class="addPopup__save-button" data-disabled="popup__form-input_disabled" data-default="Сохранить" type="submit">Сохранить</button>              
             </form>

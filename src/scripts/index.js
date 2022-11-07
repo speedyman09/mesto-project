@@ -34,14 +34,41 @@ import {
     addCard
 } from './card';
 import {openPopup,closePopup} from './modal';
-import {editProfileSubmitter, avatarSubmitter, editProfile} from './utils';
+import {editProfileSubmitter, avatarSubmitter,} from './utils';
 import { placeFormObj, userFormObj, avatarFormObj } from './variables';
 import { validateForm, prepareOnOpen } from './validate';
 import { closeByEscape, closePopupChecker } from './modal';
-import { getProfileInfo, initialCards } from './api';
-
+import { getProfileInfo, initialCards, deleteRemovedCard, postCard} from './api';
+const editProfile = (values) => {
+    profileName.textContent = values.name;
+    profileBio.textContent = values.about;
+}
 const editAvatar = (avatarUrl) => {
     avatarImage.src = avatarUrl;
+}
+
+const removeCard = (card) => {
+    deleteRemovedCard(card.dataset.id)
+    .then(() => {
+        card.remove();
+      })
+      .catch((err) => {
+        console.error(err);
+    });
+}
+const cardToServer = (cardInputName,cardInputLink) => {
+    postCard(cardInputName, cardInputLink)
+     .then(
+        (item) => {
+            const card = createCard(item);
+            cardsContainer.prepend(card);
+        }
+     )
+     .catch((err) => {
+        console.error(err);
+     })
+     
+    
 }
 Promise.all([getProfileInfo(), initialCards()])
  .then((values) => {
@@ -65,7 +92,6 @@ validateForm(avatarFormObj);
 
 avatarContainer.addEventListener('click', () => {
     openPopup(avatarPopup);
-    avatarPopupInput.value = avatarImage.src;
 });
 avatarPopupForm.addEventListener('submit', avatarSubmitter);
     
@@ -127,7 +153,7 @@ avatarPopup.addEventListener('mousedown', (evt) => {
     }
 });
 
-
+export {editProfile,removeCard,cardToServer};
 
 
 
