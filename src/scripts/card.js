@@ -2,8 +2,11 @@ import { cardsContainer, cardTemplate, cardInputName, cardInputLink, cardPopup, 
 import { initialCards,card } from "./variables";
 import { openPopup, closePopup, closeByEscape } from "./modal";
 import { postCard, deleteRemovedCard, getProfileInfo, deleteLike, putLike} from "./api";
-import { removeCard,cardToServer} from './index';
-const createCard = (item) => {
+import { removeCard,sendCardToServer} from './index';
+
+
+
+const createCard = (item, likeButtonHandler) => {
     const card = cardTemplate.cloneNode(true);
     card.dataset.id = item._id;
     const image = card.querySelector('.cards__image');
@@ -46,51 +49,17 @@ const createCard = (item) => {
         like.classList.add('cards__like_liked');
     }
 
-    like.addEventListener("click", () => {
-        likedByMe
-          ? 
-          deleteLike(item)
-          .then((item) => {
-            like.classList.remove('cards__like_liked');
+    like.addEventListener("click", () => { 
+        likeButtonHandler(item, likedByMe, (item) => {
+            likedByMe ? like.classList.remove('cards__like_liked') : like.classList.add('cards__like_liked');
             likeNumber.textContent = item.likes.length;
             likedByMe = !likedByMe;
-        })
-        : putLike(item)
-        .then((item) => {
-            like.classList.add('cards__like_liked');
-            likeNumber.textContent = item.likes.length;
-            likedByMe = !likedByMe;
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+        });
     });
 
     return card;
 }
-// initialCards.forEach((item) => {
-//     const card = createCard(item);
-//     cardsContainer.append(card);
-// });
-const addCard = (e) => {
-    e.preventDefault();
-    const cardValues = {
-        name: cardInputName.value,
-        link: cardInputLink.value,
-    };
-    // e.target.reset();
-    // postCard(cardInputName, cardInputLink)
-    //  .then(
-    //     (item) => {
-    //         const card = createCard(item);
-    //         cardsContainer.prepend(card);
-    //     }
-    //  );
-    cardToServer(cardInputName, cardInputLink);
-    setTimeout(() => { closePopup(cardPopup) }, 500);
-};
   
 export {
-    createCard,
-    addCard,
+    createCard
 }
