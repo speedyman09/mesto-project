@@ -88,6 +88,8 @@ const sendCardToServer = (cardInputName,cardInputLink) => {
         (item) => {
             const card = createCard(item, likeButtonHandler);
             cardsContainer.prepend(card);
+            closePopup(cardPopup);
+            cardForm.reset();
         }
      )
      .catch((err) => {
@@ -101,10 +103,7 @@ const addCard = (e) => {
         link: cardInputLink.value,
     };
 
-    sendCardToServer(cardInputName, cardInputLink).then(() => {
-        closePopup(cardPopup);
-        cardForm.reset();
-    });
+    sendCardToServer(cardInputName, cardInputLink);
 
 };
 

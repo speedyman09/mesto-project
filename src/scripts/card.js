@@ -18,10 +18,6 @@ const createCard = (item, likeButtonHandler) => {
     image.alt = item.name;
     title.textContent = item.name;
 
-    like.addEventListener("click", (e) => {
-        e.target.classList.toggle("cards__like_liked");
-    });
-
     const deleteButton = card.querySelector('.cards__delete');
     if (localStorage.getItem("me_id") == item.owner._id) {
         deleteButton.addEventListener("click", (e) => {
