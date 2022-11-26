@@ -1,61 +1,74 @@
-import { cardsContainer, cardTemplate, cardInputName, cardInputLink, cardPopup, imagePopup, imagePopupImage, imagePopupText } from "./variables";
-import { initialCards,card } from "./variables";
+import {
+  cardsContainer,
+  cardTemplate,
+  cardInputName,
+  cardInputLink,
+  cardPopup,
+  imagePopup,
+  imagePopupImage,
+  imagePopupText,
+} from "./variables";
+import { initialCards, card } from "./variables";
 import { openPopup, closePopup, closeByEscape } from "./modal";
-import { postCard, deleteRemovedCard, getProfileInfo, deleteLike, putLike} from "./api";
-import { removeCard,sendCardToServer} from './index';
-
-
+import {
+  postCard,
+  deleteRemovedCard,
+  getProfileInfo,
+  deleteLike,
+  putLike,
+} from "./api";
+import { removeCard, sendCardToServer } from "../pages/index";
 
 const createCard = (item, likeButtonHandler) => {
-    const card = cardTemplate.cloneNode(true);
-    card.dataset.id = item._id;
-    const image = card.querySelector('.cards__image');
-    const like = card.querySelector('.cards__like');
-    const title = card.querySelector('.cards__text');
-    const likeNumber = card.querySelector('.cards__like-number');
+  const card = cardTemplate.cloneNode(true);
+  card.dataset.id = item._id;
+  const image = card.querySelector(".cards__image");
+  const like = card.querySelector(".cards__like");
+  const title = card.querySelector(".cards__text");
+  const likeNumber = card.querySelector(".cards__like-number");
 
-    image.src = item.link;
-    image.alt = item.name;
-    title.textContent = item.name;
+  image.src = item.link;
+  image.alt = item.name;
+  title.textContent = item.name;
 
-    const deleteButton = card.querySelector('.cards__delete');
-    if (localStorage.getItem("me_id") == item.owner._id) {
-        deleteButton.addEventListener("click", (e) => {
-        const card = e.target.closest('.cards__card');
-        removeCard(card);
-        });
-    } else {
-        deleteButton.remove();
-    }
-
-    image.addEventListener('click', () => {
-        imagePopupImage.src = item.link;
-        imagePopupImage.alt = item.name;
-        imagePopupText.textContent = item.name;
-        openPopup(imagePopup);
+  const deleteButton = card.querySelector(".cards__delete");
+  if (localStorage.getItem("me_id") == item.owner._id) {
+    deleteButton.addEventListener("click", (e) => {
+      const card = e.target.closest(".cards__card");
+      removeCard(card);
     });
+  } else {
+    deleteButton.remove();
+  }
 
-    likeNumber.textContent = item.likes.length;
+  image.addEventListener("click", () => {
+    imagePopupImage.src = item.link;
+    imagePopupImage.alt = item.name;
+    imagePopupText.textContent = item.name;
+    openPopup(imagePopup);
+  });
 
-    let likedByMe = item.likes.reduce(function (result, current) {
-        return result || (current._id == localStorage.getItem("me_id"));
-      }, false);
+  likeNumber.textContent = item.likes.length;
 
-    if (likedByMe) {
-        like.classList.add('cards__like_liked');
-    }
+  let likedByMe = item.likes.reduce(function (result, current) {
+    return result || current._id == localStorage.getItem("me_id");
+  }, false);
 
-    like.addEventListener("click", () => { 
-        likeButtonHandler(item, likedByMe, (item) => {
-            likedByMe ? like.classList.remove('cards__like_liked') : like.classList.add('cards__like_liked');
-            likeNumber.textContent = item.likes.length;
-            likedByMe = !likedByMe;
-        });
+  if (likedByMe) {
+    like.classList.add("cards__like_liked");
+  }
+
+  like.addEventListener("click", () => {
+    likeButtonHandler(item, likedByMe, (item) => {
+      likedByMe
+        ? like.classList.remove("cards__like_liked")
+        : like.classList.add("cards__like_liked");
+      likeNumber.textContent = item.likes.length;
+      likedByMe = !likedByMe;
     });
+  });
 
-    return card;
-}
-  
-export {
-    createCard
-}
+  return card;
+};
+
+export { createCard };
