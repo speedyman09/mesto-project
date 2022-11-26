@@ -7,8 +7,8 @@ import {
   imagePopup,
   imagePopupImage,
   imagePopupText,
-} from "./variables";
-import { initialCards, card } from "./variables";
+} from "../Utils/constants";
+import { initialCards, card } from "../Utils/constants";
 import { openPopup, closePopup, closeByEscape } from "./modal";
 import {
   postCard,

@@ -29,33 +29,6 @@ const avatarPopupExit = document.querySelector(".avatarPopup__exit");
 const avatarImageSelector = document.querySelector(".profile__avatar");
 const avatarPopupForm = document.querySelector("#avatar-form");
 
-// const initialCards = [
-//     {
-//         name: 'Архыз',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-//     },
-//     {
-//         name: 'Челябинская область',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-//     },
-//     {
-//         name: 'Иваново',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-//     },
-//     {
-//         name: 'Камчатка',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-//     },
-//     {
-//         name: 'Холмогорский район',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-//     },
-//     {
-//         name: 'Байкал',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-//     }
-// ];
-
 const userFormObj = {
   formName: "user-form",
   submitButtonSelector: ".popup__save-button",
@@ -102,7 +75,6 @@ export {
   imagePopupText,
   imagePopupImage,
   imagePopupExit,
-  // initialCards,
   userFormObj,
   placeFormObj,
   config,

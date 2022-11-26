@@ -7,8 +7,8 @@ import {
   profileForm,
   profilePopupName,
   profilePopupBio,
-  profileName,
-  profileBio,
+  profileNameSelector,
+  profileBioSelector,
   cardForm,
   cardPopupSaveButton,
   cardPopup,
@@ -27,12 +27,12 @@ import {
   avatarContainer,
   avatarPopupExit,
   avatarPopupForm,
-  avatarImage,
-} from "../scripts/variables";
+  avatarImageSelector,
+} from "../Utils/constants";
 import { createCard } from "../scripts/card";
 import { openPopup, closePopup } from "../scripts/modal";
 // import {editProfileSubmitter, avatarSubmitter,} from './utils';
-import { placeFormObj, userFormObj, avatarFormObj } from "../scripts/variables";
+import { placeFormObj, userFormObj, avatarFormObj } from "../Utils/constants";
 import { validateForm, prepareOnOpen } from "../scripts/validate";
 import { closeByEscape, closePopupChecker } from "../scripts/modal";
 import {
@@ -47,11 +47,11 @@ import {
 } from "../scripts/api";
 
 const editProfile = (values) => {
-  profileName.textContent = values.name;
-  profileBio.textContent = values.about;
+  profileNameSelector.textContent = values.name;
+  profileBioSelector.textContent = values.about;
 };
 const editAvatar = (avatarUrl) => {
-  avatarImage.src = avatarUrl;
+  avatarImageSelector.src = avatarUrl;
 };
 const editProfileSubmitter = (e) => {
   e.preventDefault();
@@ -71,7 +71,7 @@ const avatarSubmitter = (e) => {
   e.preventDefault();
   patchAvatar(avatarPopupInput)
     .then(() => {
-      avatarImage.src = avatarPopupInput.value;
+      avatarImageSelector.src = avatarPopupInput.value;
       closePopup(avatarPopup);
       avatarPopupInput.value = "";
     })
@@ -162,8 +162,8 @@ document
   .addEventListener("submit", editProfileSubmitter);
 
 profileEditButton.addEventListener("click", () => {
-  profilePopupName.value = profileName.textContent;
-  profilePopupBio.value = profileBio.textContent;
+  profilePopupName.value = profileNameSelector.textContent;
+  profilePopupBio.value = profileBioSelector.textContent;
   openPopup(profilePopup);
   prepareOnOpen(userFormObj);
 });
