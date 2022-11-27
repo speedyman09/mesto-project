@@ -1,5 +1,14 @@
 /* add css in webpack */
 import "./../pages/index.css";
+//import Api from "../components/API";
+//import FormValidator from "../components/FormValidator";
+//import Section from "../components/Section";
+//import Card from "../components/Сard";
+//import UserInfo from "../components/UserInfo";
+//import Popup from "../components/Popup";
+//import PopupWithImage from "../components/PopupWithImage";
+//import PopupWithForm from "../components/PopupWithForm";
+
 import {
   popupExit,
   profilePopup,
@@ -45,6 +54,8 @@ import {
   deleteLike,
   putLike,
 } from "../scripts/api";
+
+const api = new Api(config);
 
 const editProfile = (values) => {
   profileNameSelector.textContent = values.name;
