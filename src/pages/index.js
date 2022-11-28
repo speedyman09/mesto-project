@@ -55,7 +55,7 @@ import {
   putLike,
 } from "../scripts/api";
 
-const api = new Api(config);
+//const api = new Api(config);
 
 const editProfile = (values) => {
   profileNameSelector.textContent = values.name;
