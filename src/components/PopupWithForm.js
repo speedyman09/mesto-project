@@ -3,9 +3,9 @@ export default class PopupWithForm extends Popup {
   constructor(popupSel, callback) {
     super(popupSel);
     this._callback = callback;
-    this._inputList = this.PopupSel.querySelectorAll(".popup__form-input");
-    this._button = this.PopupSel.querySelector(".popup__save-button");
     this._formPopup = this.PopupSel.querySelector(".popup__form");
+    this._inputList = this.selector.querySelectorAll(".popup__form-input");
+    this._button = this.selector.querySelector(".popup__save-button");
   }
 
   _getInputValues() {
