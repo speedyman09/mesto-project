@@ -1,13 +1,13 @@
 /* add css in webpack */
 import "./../pages/index.css";
-//import Api from "../components/API";
+import Api from "../components/API";
 //import FormValidator from "../components/FormValidator";
 //import Section from "../components/Section";
 //import Card from "../components/Сard";
-//import UserInfo from "../components/UserInfo";
+import UserInfo from "../components/UserInfo";
 //import Popup from "../components/Popup";
 //import PopupWithImage from "../components/PopupWithImage";
-//import PopupWithForm from "../components/PopupWithForm";
+import PopupWithForm from "../components/PopupWithForm";
 
 import {
   popupExit,
@@ -55,6 +55,11 @@ import {
   putLike,
 } from "../scripts/api";
 
+const profilePopupForm = new PopupWithForm(
+  "profilePopup",
+  editProfileSubmitter
+);
+
 //const api = new Api(config);
 
 const editProfile = (values) => {
@@ -66,13 +71,10 @@ const editAvatar = (avatarUrl) => {
 };
 const editProfileSubmitter = (e) => {
   e.preventDefault();
-  patchProfile(profilePopupName, profilePopupBio)
+  Api.patchProfile(profilePopupName, profilePopupBio)
     .then(() => {
-      editProfile({
-        name: profilePopupName.value,
-        about: profilePopupBio.value,
-      });
-      closePopup(profilePopup);
+      UserInfo.setUserInfo({ name: profilePopupName, about: profilePopupBio });
+      profilePopupForm.close();
     })
     .catch((err) => {
       console.error(err);
