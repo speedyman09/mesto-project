@@ -7,6 +7,7 @@ import {
   imagePopup,
   imagePopupImage,
   imagePopupText,
+  cardTemplateSelector,
 } from "../Utils/constants";
 import { initialCards, card } from "../Utils/constants";
 import { openPopup, closePopup, closeByEscape } from "./modal";
@@ -20,7 +21,7 @@ import {
 import { removeCard, sendCardToServer } from "../pages/index";
 
 const createCard = (item, likeButtonHandler) => {
-  const card = cardTemplate.cloneNode(true);
+  const card = cardTemplateSelector.cloneNode(true);
   card.dataset.id = item._id;
   const image = card.querySelector(".cards__image");
   const like = card.querySelector(".cards__like");

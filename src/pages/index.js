@@ -23,7 +23,7 @@ import {
   cardPopup,
   cardPopupExit,
   profileAddButton,
-  cardTemplate,
+  cardTemplateSelector,
   cardsContainer,
   cardInputName,
   cardInputLink,
@@ -55,10 +55,7 @@ import {
   putLike,
 } from "../scripts/api";
 
-const profilePopupForm = new PopupWithForm(
-  "profilePopup",
-  editProfileSubmitter
-);
+//const profilePopupForm = new PopupWithForm(  "profilePopup",  editProfileSubmitter);
 
 //const api = new Api(config);
 

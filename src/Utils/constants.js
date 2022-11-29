@@ -2,6 +2,9 @@
 const profileNameSelector = document.querySelector(".profile__name"); //имя профиля
 const profileBioSelector = document.querySelector(".profile__description"); //описание профиля
 const avatarImageSelector = document.querySelector(".profile__avatar"); //аватар профиля
+const cardTemplateSelector = document
+  .querySelector(".card-template")
+  .content.querySelector("article");
 
 //карточки
 const cardsContainer = document.querySelector(".cards");
@@ -20,9 +23,7 @@ const cardPopupSaveButton = document.querySelector(".addPopup__save-button");
 const cardPopup = document.querySelector(".addPopup");
 const cardPopupExit = document.querySelector(".addPopup__exit");
 const profileAddButton = document.querySelector(".profile__add-button");
-const cardTemplate = document
-  .querySelector(".card-template")
-  .content.querySelector("article");
+
 const cardInputName = document.querySelector("#addForm1");
 const cardInputLink = document.querySelector("#addForm2");
 const imagePopup = document.querySelector(".imagePopup");
@@ -75,7 +76,7 @@ export {
   cardPopup,
   cardPopupExit,
   profileAddButton,
-  cardTemplate,
+  cardTemplateSelector,
   cardsContainer,
   cardInputName,
   cardInputLink,
