@@ -41,7 +41,12 @@ import {
 import { createCard } from "../scripts/card";
 import { openPopup, closePopup } from "../scripts/modal";
 // import {editProfileSubmitter, avatarSubmitter,} from './utils';
-import { placeFormObj, userFormObj, avatarFormObj } from "../Utils/constants";
+import {
+  configValidate,
+  placeFormObj,
+  userFormObj,
+  avatarFormObj,
+} from "../Utils/constants";
 import { validateForm, prepareOnOpen } from "../scripts/validate";
 import { closeByEscape, closePopupChecker } from "../scripts/modal";
 import {
@@ -58,6 +63,9 @@ import {
 //const profilePopupForm = new PopupWithForm(  "profilePopup",  editProfileSubmitter);
 
 //const api = new Api(config);
+//const setValidation = formElement => {  const popupValidator = new FormValidator(configValidate, formElement);  popupValidator.enableValidation();};
+
+//popupList.forEach(popup => {   setValidation(popup); });
 
 const editProfile = (values) => {
   profileNameSelector.textContent = values.name;
