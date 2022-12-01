@@ -12,7 +12,7 @@ export default class UserInfo {
     this._userAvatar = document.querySelector(avatarImageSelector);
   }
 
-  getUserInfo() {
+  getProfileInfo() {
     return {
       name: this._name.textContent,
       about: this._Description.textContent,

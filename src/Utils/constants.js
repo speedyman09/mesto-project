@@ -7,7 +7,7 @@ const cardTemplateSelector = document
   .content.querySelector("article");
 
 //карточки
-const cardsContainer = document.querySelector(".cards");
+const cardsContainer = document.querySelector(".cards__card");
 const card = document.querySelector(".cards__card");
 
 const profile = document.querySelector(".profile");
@@ -70,10 +70,10 @@ const config = {
   },
 };
 const profileConfig = {
-  profileNameSelector: '.profile__name',
-  profileBioSelector: '.profile__description',
-  avatarImageSelector: '.profile__avatar'
-}
+  profileNameSelector: ".profile__name",
+  profileBioSelector: ".profile__description",
+  avatarImageSelector: ".profile__avatar",
+};
 export {
   profile,
   popupExit,

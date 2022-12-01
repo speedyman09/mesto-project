@@ -1,15 +1,13 @@
 /* add css in webpack */
 import "./../pages/index.css";
 import Api from "../components/API.js";
-//import FormValidator from "../components/FormValidator";
-//import Section from "../components/Section";
-//import Card from "../components/Сard";
-import UserInfo from "../components/UserInfo";
-//import Popup from "../components/Popup";
-//import PopupWithImage from "../components/PopupWithImage";
-import PopupWithForm from "../components/PopupWithForm";
-
-
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import Card from "../components/Card";
+import UserInfo from "../components/UserInfo.js";
+import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 import {
   popupExit,
@@ -39,49 +37,36 @@ import {
   avatarPopupExit,
   avatarPopupForm,
   avatarImageSelector,
-  profileConfig
-} from "../Utils/constants";
-import { createCard } from "../scripts/card";
-import { openPopup, closePopup } from "../scripts/modal";
-// import {editProfileSubmitter, avatarSubmitter,} from './utils';
-import {
+  profileConfig,
   configValidate,
   placeFormObj,
   userFormObj,
   avatarFormObj,
+  config,
 } from "../Utils/constants";
-import { validateForm, prepareOnOpen } from "../scripts/validate";
-import { closeByEscape, closePopupChecker } from "../scripts/modal";
-import {
-  getProfileInfo,
-  initialCards,
-  deleteRemovedCard,
-  postCard,
-  patchAvatar,
-  patchProfile,
-  deleteLike,
-  putLike,
-} from "../scripts/api";
+//import { createCard } from "../scripts/card";
+//import { openPopup, closePopup } from "../scripts/modal";
+// import {editProfileSubmitter, avatarSubmitter,} from './utils';
+//import { validateForm, prepareOnOpen } from "../scripts/validate";
+//import { closeByEscape, closePopupChecker } from "../scripts/modal";
+//import {  getProfileInfo,  initialCards,  deleteRemovedCard,  postCard,  patchAvatar,  patchProfile,  deleteLike,  putLike,} from "../scripts/api";
 
+//const api = new Api({  baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",  headers: {    authorization: "8f6991cb-ed06-4bec-89fd-92424de41418",    "Content-Type": "application/json",  },});
 
-const api = new Api({
-  baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
-  headers: {
-    authorization: "8f6991cb-ed06-4bec-89fd-92424de41418",
-    "Content-Type": "application/json",
-  },
-});
+const userInfo = new UserInfo(profileConfig);
 
-const userinfo = new UserInfo(profileConfig);
+const api = new Api(config);
 
-//const api = new Api(config);
-//const setValidation = formElement => {  const popupValidator = new FormValidator(configValidate, formElement);  popupValidator.enableValidation();};
+const setValidation = (formElement) => {
+  const popupValidator = new FormValidator(configValidate, formElement);
+  popupValidator.enableValidation();
+};
+//popupList.forEach((popup) => {  setValidation(popup);});
 
-//popupList.forEach(popup => {   setValidation(popup); });
-
-const editProfile = (values) => {
-  profileNameSelector.textContent = values.name;
-  profileBioSelector.textContent = values.about;
+const editProfile = () => {
+  const userData = userInfo.getUserInfo();
+  profileNameSelector.value = userData.name;
+  profileBioSelector.value = userData.about;
 };
 
 const editAvatar = (avatarUrl) => {
@@ -90,10 +75,11 @@ const editAvatar = (avatarUrl) => {
 
 const editProfileSubmitter = (e) => {
   e.preventDefault();
-  const data = {name: profilePopupName.value, about: profilePopupBio.value};
-  api.patchProfile(data)
+  const data = { name: profilePopupName.value, about: profilePopupBio.value };
+  api
+    .patchProfile(data)
     .then(() => {
-      userinfo.setUserInfo(data);
+      userInfo.setUserInfo(data);
       console.log("Have set userInfo");
       profilePopupForm.close();
     })
@@ -103,10 +89,11 @@ const editProfileSubmitter = (e) => {
 };
 const avatarSubmitter = (e) => {
   e.preventDefault();
-  const link = {avatar: avatarPopupInput.value}
-  api.patchAvatar(link)
+  const link = { avatar: avatarPopupInput.value };
+  api
+    .patchAvatar(link)
     .then(() => {
-      userinfo.setUserAvatar(link);
+      userInfo.setUserAvatar(link);
       avatarPopupInstance.close();
       avatarPopupInput.value = "";
     })
@@ -115,40 +102,47 @@ const avatarSubmitter = (e) => {
     });
 };
 
-const profilePopupForm = new PopupWithForm(".profilePopup",  editProfileSubmitter);
+const profilePopupForm = new PopupWithForm(
+  ".profilePopup",
+  editProfileSubmitter
+);
 const avatarPopupInstance = new PopupWithForm(".avatarPopup", avatarSubmitter);
 
+//создали новую карточку
+const createNewCard = (data) => {
+  const card = new Card(data, userInfo.userId, cardTemplateSelector, {
+    handleCardClick: (data) => popupImage.open(data),
+    handleCardDelete: () => {
+      currentCard = card;
+      popupWithConfirm.open(data._id);
+    },
+    handleLikeClick: () => handleLikeClick(card, data),
+    cardImageloader: () => cardImageloader(card, cardImageErrorClass),
+  });
+  return card;
+};
 
-const removeCard = (card) => {
-  deleteRemovedCard(card.dataset.id)
-    .then(() => {
-      card.remove();
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-};
-const sendCardToServer = (cardInputName, cardInputLink) => {
-  return postCard(cardInputName, cardInputLink)
-    .then((item) => {
-      const card = createCard(item, likeButtonHandler);
-      cardsContainer.prepend(card);
-      closePopup(cardPopup);
-      cardForm.reset();
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-};
-const addCard = (e) => {
-  e.preventDefault();
-  const cardValues = {
-    name: cardInputName.value,
-    link: cardInputLink.value,
-  };
+//нарисовали на странице новую карточку
+const cards = new Section(
+  {
+    renderer: (item) => {
+      const card = createNewCard(item);
+      const cardElement = card.createCard();
+      return cardElement;
+    },
+  },
+  cardsContainer
+);
 
-  sendCardToServer(cardInputName, cardInputLink);
-};
+api
+  .loadData()
+  .then((data) => {
+    const [userData, cardsData] = data;
+    userInfo.patchProfile(userData);
+    avatarImageLoader.initialize();
+    cards.renderItems(cardsData);
+  })
+  .catch((err) => console.log(err));
 
 const likeButtonHandler = (item, likedByMe, successFunc) => {
   likedByMe
@@ -164,25 +158,13 @@ const likeButtonHandler = (item, likedByMe, successFunc) => {
         });
 };
 
-Promise.all([getProfileInfo(), initialCards()])
-  .then((values) => {
-    editProfile(values[0]);
-    localStorage.setItem("me_id", values[0]._id);
-    editAvatar(values[0].avatar);
-    values[1].forEach(function (cardObj) {
-      const card = createCard(cardObj, likeButtonHandler);
-      cardsContainer.append(card);
-    });
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+//Promise.all([getProfileInfo(), initialCards()])  .then((values) => {    editProfile(values[0]);    localStorage.setItem("me_id", values[0]._id);    editAvatar(values[0].avatar);    values[1].forEach(function (cardObj) {      const card = createCard(cardObj, likeButtonHandler);      cardsContainer.append(card);    });  })  .catch((err) => {    console.error(err);  });
 
-validateForm(userFormObj);
+FormValidator(userFormObj);
 
-validateForm(placeFormObj);
+FormValidator(placeFormObj);
 
-validateForm(avatarFormObj);
+FormValidator(avatarFormObj);
 
 avatarContainer.addEventListener("click", () => {
   openPopup(avatarPopup);
@@ -244,4 +226,4 @@ avatarPopup.addEventListener("mousedown", (evt) => {
   }
 });
 
-export { editProfile, removeCard, sendCardToServer };
+//export { editProfile, removeCard, sendCardToServer };

@@ -107,6 +107,6 @@ export default class Api {
   }
   // Загрузка всех данных
   loadData() {
-    return Promise.all([this.getUserInfo(), this.getCards()]);
+    return Promise.all([this.getProfileInfo(), this.initialCards()]);
   }
 }
