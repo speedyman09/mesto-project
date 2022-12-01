@@ -1,6 +1,6 @@
 /* add css in webpack */
 import "./../pages/index.css";
-import Api from "../components/API";
+import Api from "../components/API.js";
 //import FormValidator from "../components/FormValidator";
 //import Section from "../components/Section";
 //import Card from "../components/Сard";
@@ -8,6 +8,8 @@ import UserInfo from "../components/UserInfo";
 //import Popup from "../components/Popup";
 //import PopupWithImage from "../components/PopupWithImage";
 import PopupWithForm from "../components/PopupWithForm";
+
+
 
 import {
   popupExit,
@@ -37,10 +39,11 @@ import {
   avatarPopupExit,
   avatarPopupForm,
   avatarImageSelector,
+  profileConfig
 } from "../Utils/constants";
 import { createCard } from "../scripts/card";
 import { openPopup, closePopup } from "../scripts/modal";
-// import {editProfileSubmitter, avatarSubmitter,} from './utils';
+// import {editProfileSubmitter, avatarSubmitter,} from './Utils';
 import { placeFormObj, userFormObj, avatarFormObj } from "../Utils/constants";
 import { validateForm, prepareOnOpen } from "../scripts/validate";
 import { closeByEscape, closePopupChecker } from "../scripts/modal";
@@ -55,7 +58,16 @@ import {
   putLike,
 } from "../scripts/api";
 
-//const profilePopupForm = new PopupWithForm(  "profilePopup",  editProfileSubmitter);
+
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
+  headers: {
+    authorization: "8f6991cb-ed06-4bec-89fd-92424de41418",
+    "Content-Type": "application/json",
+  },
+});
+
+const userinfo = new UserInfo(profileConfig);
 
 //const api = new Api(config);
 
@@ -63,14 +75,18 @@ const editProfile = (values) => {
   profileNameSelector.textContent = values.name;
   profileBioSelector.textContent = values.about;
 };
+
 const editAvatar = (avatarUrl) => {
   avatarImageSelector.src = avatarUrl;
 };
+
 const editProfileSubmitter = (e) => {
   e.preventDefault();
-  Api.patchProfile(profilePopupName, profilePopupBio)
+  const data = {name: profilePopupName.value, about: profilePopupBio.value};
+  api.patchProfile(data)
     .then(() => {
-      UserInfo.setUserInfo({ name: profilePopupName, about: profilePopupBio });
+      userinfo.setUserInfo(data);
+      console.log("Have set userInfo");
       profilePopupForm.close();
     })
     .catch((err) => {
@@ -79,16 +95,21 @@ const editProfileSubmitter = (e) => {
 };
 const avatarSubmitter = (e) => {
   e.preventDefault();
-  patchAvatar(avatarPopupInput)
+  const link = {avatar: avatarPopupInput.value}
+  api.patchAvatar(link)
     .then(() => {
-      avatarImageSelector.src = avatarPopupInput.value;
-      closePopup(avatarPopup);
+      userinfo.setUserAvatar(link);
+      avatarPopupInstance.close();
       avatarPopupInput.value = "";
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
+const profilePopupForm = new PopupWithForm(".profilePopup",  editProfileSubmitter);
+const avatarPopupInstance = new PopupWithForm(".avatarPopup", avatarSubmitter);
+
 
 const removeCard = (card) => {
   deleteRemovedCard(card.dataset.id)

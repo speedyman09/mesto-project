@@ -4,12 +4,12 @@ export default class UserInfo {
     profileBioSelector,
     avatarImageSelector,
   }) {
-    this._profileNameSelector = profileNameSelector;
-    this._profileBioSelector = profileBioSelector;
-    this._avatarImageSelector = avatarImageSelector;
-    this._name = document.querySelector(this._profileNameSelector);
-    this._Description = document.querySelector(this._profileBioSelector);
-    this._userAvatar = document.querySelector(this._avatarImageSelector);
+    // this._profileNameSelector = profileNameSelector;
+    // this._profileBioSelector = profileBioSelector;
+    // this._avatarImageSelector = avatarImageSelector;
+    this._name = document.querySelector(profileNameSelector);
+    this._Description = document.querySelector(profileBioSelector);
+    this._userAvatar = document.querySelector(avatarImageSelector);
   }
 
   getUserInfo() {
@@ -23,6 +23,10 @@ export default class UserInfo {
     this.userId = data._id;
     this._name.textContent = data.name;
     this._Description.textContent = data.about;
+  }
+
+  setUserAvatar(data) {
+    this.userId = data._id;
     this._userAvatar.src = data.avatar;
   }
 }

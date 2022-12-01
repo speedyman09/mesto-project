@@ -40,14 +40,14 @@ export default class Api {
   }
   //запрос информации о пользователе
   getProfileInfo() {
-    return fetch(`${config.baseUrl}/users/me`, {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: "GET",
       headers: this.headers,
     }).then(this._checkData);
   }
   //обновление информации о пользователе
   patchProfile(profile) {
-    return fetch(`${config.baseUrl}/users/me`, {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
@@ -58,24 +58,24 @@ export default class Api {
   }
   //обновляем аватар
   patchAvatar(link) {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
-        avatar: link.avatarPopupInput,
+        avatar: link.avatar,
       }),
     }).then(this._checkData);
   }
   //запрашиваем карточки
   initialCards() {
-    return fetch(`${config.baseUrl}/cards`, {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "GET",
       headers: this.headers,
     }).then(this._checkData);
   }
   //постим карточки
   postCard(newCard) {
-    return fetch(`${config.baseUrl}/cards`, {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify({
@@ -86,21 +86,21 @@ export default class Api {
   }
   //удаляем карточки
   deleteRemovedCard(id) {
-    return fetch(`${config.baseUrl}/cards/${id}`, {
+    return fetch(`${this.baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this.headers,
     }).then(this._checkData);
   }
   //добавляем лайк
   putLike(cardObj) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
+    return fetch(`${this.baseUrl}/cards/likes/${cardObj._id}`, {
       method: "PUT",
       headers: this.headers,
     }).then(this._checkData);
   }
   //удаляем лайк
   deleteLike(cardObj) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
+    return fetch(`${this.baseUrl}/cards/likes/${cardObj._id}`, {
       method: "DELETE",
       headers: this.headers,
     }).then(this._checkData);

@@ -60,7 +60,11 @@ const config = {
     "Content-Type": "application/json",
   },
 };
-
+const profileConfig = {
+  profileNameSelector: '.profile__name',
+  profileBioSelector: '.profile__description',
+  avatarImageSelector: '.profile__avatar'
+}
 export {
   profile,
   popupExit,
@@ -95,4 +99,6 @@ export {
   avatarImageSelector,
   avatarPopupForm,
   card,
+  profileConfig
+
 };
