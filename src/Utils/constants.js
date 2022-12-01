@@ -37,6 +37,15 @@ const avatarContainer = document.querySelector(".profile__avatar-container");
 const avatarPopupExit = document.querySelector(".avatarPopup__exit");
 const avatarPopupForm = document.querySelector("#avatar-form");
 
+const configValidate = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__submit",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
+  inactiveButtonClass: "form__submit_disabled",
+};
+
 const userFormObj = {
   formName: "user-form",
   submitButtonSelector: ".popup__save-button",
@@ -99,6 +108,6 @@ export {
   avatarImageSelector,
   avatarPopupForm,
   card,
-  profileConfig
-
+  profileConfig,
+  configValidate,
 };
