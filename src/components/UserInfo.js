@@ -4,15 +4,12 @@ export default class UserInfo {
     profileBioSelector,
     avatarImageSelector,
   }) {
-    // this._profileNameSelector = profileNameSelector;
-    // this._profileBioSelector = profileBioSelector;
-    // this._avatarImageSelector = avatarImageSelector;
     this._name = document.querySelector(profileNameSelector);
     this._Description = document.querySelector(profileBioSelector);
     this._userAvatar = document.querySelector(avatarImageSelector);
   }
 
-  getProfileInfo() {
+  getUserInfo() {
     return {
       name: this._name.textContent,
       about: this._Description.textContent,

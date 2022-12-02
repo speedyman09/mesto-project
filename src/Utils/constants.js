@@ -11,7 +11,7 @@ const cardsContainer = document.querySelector(".cards__card");
 const card = document.querySelector(".cards__card");
 
 const profile = document.querySelector(".profile");
-
+const popupList = Array.from(document.querySelectorAll(".popup"));
 const popupExit = document.querySelector(".popup__exit");
 const profilePopup = document.querySelector(".popup");
 const profileEditButton = document.querySelector(".profile__edit");
@@ -26,7 +26,7 @@ const profileAddButton = document.querySelector(".profile__add-button");
 
 const cardInputName = document.querySelector("#addForm1");
 const cardInputLink = document.querySelector("#addForm2");
-const imagePopup = document.querySelector(".imagePopup");
+const imagePopupSel = document.querySelector(".imagePopup");
 const imagePopupText = document.querySelector(".imagePopup__text");
 const imagePopupImage = document.querySelector(".imagePopup__image");
 const imagePopupExit = document.querySelector(".imagePopup__exit");
@@ -93,7 +93,7 @@ export {
   cardsContainer,
   cardInputName,
   cardInputLink,
-  imagePopup,
+  imagePopupSel,
   imagePopupText,
   imagePopupImage,
   imagePopupExit,
@@ -110,4 +110,5 @@ export {
   card,
   profileConfig,
   configValidate,
+  popupList,
 };
