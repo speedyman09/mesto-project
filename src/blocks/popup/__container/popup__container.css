@@ -1,22 +1,16 @@
-
 .popup__container {
-    padding: 34px 36px 37px;
-    position: relative;
-    width: 430px;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 25px rgb(0 0 0 / 15%);
-    border-radius: 10px;
-    color: #000000;
-    border: none;
-    outline: none;
+  background-color: #fff;
+  color: #000;
+  max-width: 430px;
+  padding: 34px 36px 37px;
+  border-radius: 10px;
+  position: relative;
+  transition: all 0.2s linear;
 }
 
-@media screen and (max-width: 645px) {
-    .popup__container {
-        padding: 25px 22px 25px;
-        width: 282px;
-    }
+@media screen and (max-width: 450px) {
+  .popup__container {
+    max-width: 282px;
+    padding: 25px 22px 25px;
+  }
 }
