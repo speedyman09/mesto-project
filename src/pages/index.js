@@ -26,7 +26,7 @@ import {
   cardsContainer,
   cardInputName,
   cardInputLink,
-  imagePopup,
+  imagePopupSel,
   imagePopupText,
   imagePopupImage,
   imagePopupExit,
@@ -86,7 +86,6 @@ const editProfileSubmitter = (e) => {
     .patchProfile(data)
     .then(() => {
       userinfo.setUserInfo(data);
-      console.log("Have set userInfo");
       profilePopupForm.close();
     })
     .catch((err) => {
@@ -127,7 +126,11 @@ const sendCardToServer = (cardInputName, cardInputLink) => {
       const card = createCard(item, likeButtonHandler);
       cardsContainer.prepend(card);
       closePopup(cardPopup);
-      cardForm.reset();
+      setTimeout(() => {
+        // visual effect
+        cardForm.reset();
+      }, 500);
+      
     })
     .catch((err) => {
       console.error(err);

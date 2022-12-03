@@ -11,7 +11,7 @@ const imagePopupExit = document.querySelector(".imagePopup__exit");
 const avatarPopupExit = document.querySelector(".avatarPopup__exit");
 
 //карточки
-const cardsContainer = document.querySelector(".cards__card");
+const cardsContainer = document.querySelector(".cards");
 const card = document.querySelector(".cards__card");
 
 const profile = document.querySelector(".profile");
@@ -20,12 +20,13 @@ const popupExit = document.querySelector(".popup__exit");
 const profilePopup = document.querySelector(".popup");
 const profileEditButton = document.querySelector(".profile__edit");
 
-const profileForm = document.querySelector("#formEdit");
-const profilePopupName = document.querySelector("#heading");
-const profilePopupBio = document.querySelector("#subheading");
+const profileForm = document.querySelector("#editForm");
+const profilePopupName = document.querySelector("#editForm1");
+const profilePopupBio = document.querySelector("#editForm2");
 
-const cardForm = document.querySelector("#newCard");
-const cardPopupSaveButton = document.querySelector("#submitAddCard");
+const cardForm = document.querySelector("#addForm");
+const cardPopupSaveButton = document.querySelector(".addPopup__save-button");
+
 const cardPopup = document.querySelector(".addPopup");
 
 const profileAddButton = document.querySelector(".profile__add-button");
