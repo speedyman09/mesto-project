@@ -10,17 +10,17 @@ export default class FormValidator {
     formElement
   ) {
     this._inputSelector = inputSelector;
-    this._submitButtonSelector = document.querySelector(submitButtonSelector);
-    this._inactiveButtonClass = document.querySelector(inactiveButtonClass);
-    this._inputErrorClass = document.querySelector(inputErrorClass);
-    this._errorClass = document.querySelector(errorClass);
+    this._submitButtonSelector = submitButtonSelector;
+    this._inactiveButtonClass = inactiveButtonClass;
+    this._inputErrorClass = inputErrorClass;
+    this._errorClass = errorClass;
     this._formElement = document.querySelector(formElement);
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)
     );
-    // this._buttonElement = this._formElement.querySelector(
-    //   this._submitButtonSelector
-    // );
+    this._buttonElement = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -57,18 +57,18 @@ export default class FormValidator {
 
   _toggleButtonState() {
     if (this._hasInvalidInput(this._inputList)) {
-      this._submitButtonSelector.classList.add(this._inactiveButtonClass);
-      this._submitButtonSelector.setAttribute("disabled", "disabled");
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+      this._buttonElement.setAttribute("disabled", "disabled");
     } else {
-      this._submitButtonSelector.classList.remove(this._inactiveButtonClass);
-      this._submitButtonSelector.removeAttribute("disabled", "disabled");
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.removeAttribute("disabled", "disabled");
     }
   }
 
   _setEventListeners() {
     this._formElement.addEventListener("reset", () => {
-      this._submitButtonSelector.classList.add(this._inactiveButtonClass);
-      this._submitButtonSelector.setAttribute("disabled", "disabled");
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+      this._buttonElement.setAttribute("disabled", "disabled");
       this._inputList.forEach((inputElement) => {
         this._hideInputError(inputElement);
       });
