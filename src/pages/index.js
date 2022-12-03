@@ -44,7 +44,7 @@ import {
   avatarFormObj,
   config,
 } from "../Utils/constants";
-//import { createCard } from "../scripts/card";
+// import { createCard, } from "../scripts/card";
 //import { openPopup, closePopup } from "../scripts/modal";
 // import {editProfileSubmitter, avatarSubmitter,} from './utils';
 //import { validateForm, prepareOnOpen } from "../scripts/validate";
@@ -57,10 +57,10 @@ const userInfo = new UserInfo(profileConfig);
 
 const api = new Api(config);
 
-const setValidation = (formElement) => {
-  const popupValidator = new FormValidator(configValidate, formElement);
-  popupValidator.enableValidation();
-};
+// const setValidation = (formElement) => {
+//   const popupValidator = new FormValidator(configValidate, formElement);
+//   popupValidator.enableValidation();
+// };
 //popupList.forEach((popup) => {  setValidation(popup);});
 
 const editProfile = () => {
@@ -108,10 +108,12 @@ const profilePopupForm = new PopupWithForm(
 );
 const avatarPopupInstance = new PopupWithForm(".avatarPopup", avatarSubmitter);
 
+const imagePopupInstance = new PopupWithImage('.addPopup');
+
 //создали новую карточку
 const createNewCard = (data) => {
   const card = new Card(data, userInfo.userId, cardTemplateSelector, {
-    handleCardClick: (data) => popupImage.open(data),
+    handleCardClick: (data) => imagePopupInstance.open(data),
     handleCardDelete: () => {
       currentCard = card;
       popupWithConfirm.open(data._id);
@@ -160,11 +162,23 @@ const likeButtonHandler = (item, likedByMe, successFunc) => {
 
 //Promise.all([getProfileInfo(), initialCards()])  .then((values) => {    editProfile(values[0]);    localStorage.setItem("me_id", values[0]._id);    editAvatar(values[0].avatar);    values[1].forEach(function (cardObj) {      const card = createCard(cardObj, likeButtonHandler);      cardsContainer.append(card);    });  })  .catch((err) => {    console.error(err);  });
 
-FormValidator(userFormObj);
+// const userFormValidation = new FormValidator({
+//   inputSelector: '.popup__form-input',
+//   submitButtonSelector: '.popup__save-button',
+//   inactiveButtonClass: '.popup__form-input_disabled',
+//   inputErrorClass: '.popup__form-error_active',
+//   errorClass: '.popup__form-error',
+// },
+// '.popup__form');
 
-FormValidator(placeFormObj);
+// userFormValidation.enableValidation();
 
-FormValidator(avatarFormObj);
+
+// FormValidator(userFormObj);
+
+// FormValidator(placeFormObj);
+
+// FormValidator(avatarFormObj);
 
 avatarContainer.addEventListener("click", () => {
   openPopup(avatarPopup);
