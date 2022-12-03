@@ -27,7 +27,7 @@ import {
   cardsContainer,
   cardInputName,
   cardInputLink,
-  imagePopup,
+  imagePopupSel,
   imagePopupText,
   imagePopupImage,
   imagePopupExit,
@@ -43,6 +43,7 @@ import {
   userFormObj,
   avatarFormObj,
   config,
+  popupList,
 } from "../Utils/constants";
 // import { createCard, } from "../scripts/card";
 //import { openPopup, closePopup } from "../scripts/modal";
@@ -57,11 +58,38 @@ const userInfo = new UserInfo(profileConfig);
 
 const api = new Api(config);
 
-// const setValidation = (formElement) => {
-//   const popupValidator = new FormValidator(configValidate, formElement);
-//   popupValidator.enableValidation();
-// };
-//popupList.forEach((popup) => {  setValidation(popup);});
+const setValidation = (formElement) => {
+  const popupValidator = new FormValidator(configValidate, formElement);
+  popupValidator.enableValidation();
+};
+popupList.forEach((popup) => {
+  setValidation(popup);
+});
+
+const profilePopupForm = new PopupWithForm(
+  ".profilePopup",
+  editProfileSubmitter
+);
+const avatarPopupInstance = new PopupWithForm(".avatarPopup", avatarSubmitter);
+const popupImage = new PopupWithImage(imagePopupSel);
+
+//создали новую карточку
+const createNewCard = (data) => {
+  const card = new Card(data, userInfo.userId, cardTemplateSelector);
+  return card;
+};
+
+//нарисовали на странице новую карточку
+const cards = new Section(
+  {
+    renderer: (item) => {
+      const card = createNewCard(item);
+      const cardElement = card.createCard();
+      return cardElement;
+    },
+  },
+  cardsContainer
+);
 
 const editProfile = () => {
   const userData = userInfo.getUserInfo();
@@ -102,50 +130,6 @@ const avatarSubmitter = (e) => {
     });
 };
 
-const profilePopupForm = new PopupWithForm(
-  ".profilePopup",
-  editProfileSubmitter
-);
-const avatarPopupInstance = new PopupWithForm(".avatarPopup", avatarSubmitter);
-
-const imagePopupInstance = new PopupWithImage('.addPopup');
-
-//создали новую карточку
-const createNewCard = (data) => {
-  const card = new Card(data, userInfo.userId, cardTemplateSelector, {
-    handleCardClick: (data) => imagePopupInstance.open(data),
-    handleCardDelete: () => {
-      currentCard = card;
-      popupWithConfirm.open(data._id);
-    },
-    handleLikeClick: () => handleLikeClick(card, data),
-    cardImageloader: () => cardImageloader(card, cardImageErrorClass),
-  });
-  return card;
-};
-
-//нарисовали на странице новую карточку
-const cards = new Section(
-  {
-    renderer: (item) => {
-      const card = createNewCard(item);
-      const cardElement = card.createCard();
-      return cardElement;
-    },
-  },
-  cardsContainer
-);
-
-api
-  .loadData()
-  .then((data) => {
-    const [userData, cardsData] = data;
-    userInfo.patchProfile(userData);
-    avatarImageLoader.initialize();
-    cards.renderItems(cardsData);
-  })
-  .catch((err) => console.log(err));
-
 const likeButtonHandler = (item, likedByMe, successFunc) => {
   likedByMe
     ? deleteLike(item)
@@ -162,23 +146,11 @@ const likeButtonHandler = (item, likedByMe, successFunc) => {
 
 //Promise.all([getProfileInfo(), initialCards()])  .then((values) => {    editProfile(values[0]);    localStorage.setItem("me_id", values[0]._id);    editAvatar(values[0].avatar);    values[1].forEach(function (cardObj) {      const card = createCard(cardObj, likeButtonHandler);      cardsContainer.append(card);    });  })  .catch((err) => {    console.error(err);  });
 
-// const userFormValidation = new FormValidator({
-//   inputSelector: '.popup__form-input',
-//   submitButtonSelector: '.popup__save-button',
-//   inactiveButtonClass: '.popup__form-input_disabled',
-//   inputErrorClass: '.popup__form-error_active',
-//   errorClass: '.popup__form-error',
-// },
-// '.popup__form');
+//FormValidator(userFormObj);
 
-// userFormValidation.enableValidation();
+//FormValidator(placeFormObj);
 
-
-// FormValidator(userFormObj);
-
-// FormValidator(placeFormObj);
-
-// FormValidator(avatarFormObj);
+//FormValidator(avatarFormObj);
 
 avatarContainer.addEventListener("click", () => {
   openPopup(avatarPopup);
