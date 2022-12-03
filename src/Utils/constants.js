@@ -6,6 +6,11 @@ const cardTemplateSelector = document
   .querySelector(".card-template")
   .content.querySelector("article");
 
+const popupExit = document.querySelector(".popup__exit");
+const cardPopupExit = document.querySelector(".addPopup__exit");
+const imagePopupExit = document.querySelector(".imagePopup__exit");
+const avatarPopupExit = document.querySelector(".avatarPopup__exit");
+
 //карточки
 const cardsContainer = document.querySelector(".cards__card");
 const card = document.querySelector(".cards__card");
@@ -15,13 +20,15 @@ const popupList = Array.from(document.querySelectorAll(".popup"));
 const popupExit = document.querySelector(".popup__exit");
 const profilePopup = document.querySelector(".popup");
 const profileEditButton = document.querySelector(".profile__edit");
-const profileForm = document.querySelector("#editFormForm");
-const profilePopupName = document.querySelector("#editForm1");
-const profilePopupBio = document.querySelector("#editForm2");
-const cardForm = document.querySelector("#addForm");
-const cardPopupSaveButton = document.querySelector(".addPopup__save-button");
+
+const profileForm = document.querySelector("#formEdit");
+const profilePopupName = document.querySelector("#heading");
+const profilePopupBio = document.querySelector("#subheading");
+
+const cardForm = document.querySelector("#newCard");
+const cardPopupSaveButton = document.querySelector("#submitAddCard");
 const cardPopup = document.querySelector(".addPopup");
-const cardPopupExit = document.querySelector(".addPopup__exit");
+
 const profileAddButton = document.querySelector(".profile__add-button");
 
 const cardInputName = document.querySelector("#addForm1");
@@ -29,12 +36,11 @@ const cardInputLink = document.querySelector("#addForm2");
 const imagePopupSel = document.querySelector(".imagePopup");
 const imagePopupText = document.querySelector(".imagePopup__text");
 const imagePopupImage = document.querySelector(".imagePopup__image");
-const imagePopupExit = document.querySelector(".imagePopup__exit");
 
 const avatarPopup = document.querySelector(".avatarPopup");
 const avatarPopupInput = document.querySelector("#avatarForm1");
 const avatarContainer = document.querySelector(".profile__avatar-container");
-const avatarPopupExit = document.querySelector(".avatarPopup__exit");
+
 const avatarPopupForm = document.querySelector("#avatar-form");
 
 const configValidate = {

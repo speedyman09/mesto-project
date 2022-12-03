@@ -1,14 +1,13 @@
 /* add css in webpack */
 import "./../pages/index.css";
 import Api from "../components/API.js";
-import FormValidator from "../components/FormValidator.js";
-import Section from "../components/Section.js";
-import Card from "../components/Card";
-import UserInfo from "../components/UserInfo.js";
-import Popup from "../components/Popup.js";
-import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-
+import FormValidator from "../components/FormValidator";
+import Section from "../components/Section";
+//import Card from "../components/Сard";
+import UserInfo from "../components/UserInfo";
+//import Popup from "../components/Popup";
+//import PopupWithImage from "../components/PopupWithImage";
+import PopupWithForm from "../components/PopupWithForm";
 import {
   popupExit,
   profilePopup,
@@ -38,6 +37,12 @@ import {
   avatarPopupForm,
   avatarImageSelector,
   profileConfig,
+  popupList,
+} from "../Utils/constants";
+import { createCard } from "../scripts/card";
+import { openPopup, closePopup } from "../scripts/modal";
+// import {editProfileSubmitter, avatarSubmitter,} from './utils';
+import {
   configValidate,
   placeFormObj,
   userFormObj,
@@ -45,18 +50,27 @@ import {
   config,
   popupList,
 } from "../Utils/constants";
-//import { createCard } from "../scripts/card";
-//import { openPopup, closePopup } from "../scripts/modal";
-// import {editProfileSubmitter, avatarSubmitter,} from './utils';
 //import { validateForm, prepareOnOpen } from "../scripts/validate";
-//import { closeByEscape, closePopupChecker } from "../scripts/modal";
-//import {  getProfileInfo,  initialCards,  deleteRemovedCard,  postCard,  patchAvatar,  patchProfile,  deleteLike,  putLike,} from "../scripts/api";
+import { closeByEscape, closePopupChecker } from "../scripts/modal";
+import {
+  getProfileInfo,
+  initialCards,
+  deleteRemovedCard,
+  postCard,
+  patchAvatar,
+  patchProfile,
+  deleteLike,
+  putLike,
+} from "../scripts/api";
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
+  headers: {
+    authorization: "8f6991cb-ed06-4bec-89fd-92424de41418",
+    "Content-Type": "application/json",
+  },
+});
 
-//const api = new Api({  baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",  headers: {    authorization: "8f6991cb-ed06-4bec-89fd-92424de41418",    "Content-Type": "application/json",  },});
-
-const userInfo = new UserInfo(profileConfig);
-
-const api = new Api(config);
+const userinfo = new UserInfo(profileConfig);
 
 const setValidation = (formElement) => {
   const popupValidator = new FormValidator(configValidate, formElement);
@@ -91,23 +105,39 @@ const cards = new Section(
   cardsContainer
 );
 
-const editProfile = () => {
-  const userData = userInfo.getUserInfo();
-  profileNameSelector.value = userData.name;
-  profileBioSelector.value = userData.about;
+// -----новая карточка
+const createNewCard = (data) => {
+  const card = new Card(data, userInfo.userId, cardTemplateSelector);
+  return card;
 };
 
+// ---отрисовка карточек
+const cards = new Section(
+  {
+    renderer: (item) => {
+      const card = createNewCard(item);
+      const cardElement = card.createCard();
+      return cardElement;
+    },
+  },
+  cardsContainer
+);
+//----
+
+const editProfile = (values) => {
+  profileNameSelector.textContent = values.name;
+  profileBioSelector.textContent = values.about;
+};
 const editAvatar = (avatarUrl) => {
   avatarImageSelector.src = avatarUrl;
 };
-
 const editProfileSubmitter = (e) => {
   e.preventDefault();
   const data = { name: profilePopupName.value, about: profilePopupBio.value };
   api
     .patchProfile(data)
     .then(() => {
-      userInfo.setUserInfo(data);
+      userinfo.setUserInfo(data);
       console.log("Have set userInfo");
       profilePopupForm.close();
     })
@@ -121,7 +151,7 @@ const avatarSubmitter = (e) => {
   api
     .patchAvatar(link)
     .then(() => {
-      userInfo.setUserAvatar(link);
+      userinfo.setUserAvatar(link);
       avatarPopupInstance.close();
       avatarPopupInput.value = "";
     })
@@ -129,7 +159,6 @@ const avatarSubmitter = (e) => {
       console.log(err);
     });
 };
-
 const likeButtonHandler = (item, likedByMe, successFunc) => {
   likedByMe
     ? deleteLike(item)
@@ -156,51 +185,44 @@ avatarContainer.addEventListener("click", () => {
   openPopup(avatarPopup);
 });
 avatarPopupForm.addEventListener("submit", avatarSubmitter);
-
 avatarPopupExit.addEventListener("click", () => {
   closePopup(avatarPopup);
 });
 imagePopupExit.addEventListener("click", () => {
   closePopup(imagePopup);
 });
-
 document
   .querySelector("#editForm")
   .addEventListener("submit", editProfileSubmitter);
-
 profileEditButton.addEventListener("click", () => {
   profilePopupName.value = profileNameSelector.textContent;
   profilePopupBio.value = profileBioSelector.textContent;
   openPopup(profilePopup);
-  prepareOnOpen(userFormObj);
+  //prepareOnOpen(userFormObj);
 });
-
 popupExit.addEventListener("click", () => {
   closePopup(profilePopup);
 });
-
 cardPopupExit.addEventListener("click", () => {
   closePopup(cardPopup);
 });
 profileAddButton.addEventListener("click", () => {
   openPopup(cardPopup);
-  prepareOnOpen(placeFormObj);
+  // prepareOnOpen(placeFormObj);
 });
 
-document.querySelector("#addForm").addEventListener("submit", addCard);
+cardForm.addEventListener("submit", addCard);
 
 document.querySelector(".popup").addEventListener("mousedown", (evt) => {
   if (document.querySelector(".popup_opened")) {
     closePopupChecker(evt);
   }
 });
-
 document.querySelector(".addPopup").addEventListener("mousedown", (evt) => {
   if (document.querySelector(".popup_opened")) {
     closePopupChecker(evt);
   }
 });
-
 imagePopup.addEventListener("mousedown", (evt) => {
   if (document.querySelector(".popup_opened")) {
     closePopupChecker(evt);
@@ -211,5 +233,4 @@ avatarPopup.addEventListener("mousedown", (evt) => {
     closePopupChecker(evt);
   }
 });
-
-//export { editProfile, removeCard, sendCardToServer };
+export { editProfile, removeCard, sendCardToServer };
