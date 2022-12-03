@@ -1,3 +1,5 @@
+import FormValidator from "../components/FormValidator";
+
 //селекторы
 const profileNameSelector = document.querySelector(".profile__name"); //имя профиля
 const profileBioSelector = document.querySelector(".profile__description"); //описание профиля
@@ -52,16 +54,44 @@ const userFormObj = {
   inputSelector: ".popup__form-input",
 };
 
-const placeFormObj = {
-  formName: "place-form",
-  submitButtonSelector: ".addPopup__save-button",
-  inputSelector: ".popup__form-input",
-};
-const avatarFormObj = {
-  formName: "avatar-form",
-  submitButtonSelector: ".avatarPopup__save-button",
-  inputSelector: ".popup__form-input",
-};
+const userFormInstance = new FormValidator({
+  inputSelector: '.popup__form-input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__form-input_disabled',
+  inputErrorClass: 'popup__form-error_disabled',
+  errorClass: 'popup__form-error',
+},
+'.popup__form')
+
+const placeFormInstance = new FormValidator({
+  inputSelector: '.popup__form-input',
+  submitButtonSelector: '.addPopup__save-button',
+  inactiveButtonClass: 'popup__form-input_disabled',
+  inputErrorClass: 'popup__form-error_disabled',
+  errorClass: 'popup__form-error',
+},
+'.addPopup__form');
+
+const avatarFormInstance = new FormValidator({
+  inputSelector: '.popup__form-input',
+  submitButtonSelector: '.avatarPopup__save-button',
+  inactiveButtonClass: 'popup__form-input_disabled',
+  inputErrorClass: 'popup__form-error_disabled',
+  errorClass: 'popup__form-error',
+},
+'.avatarPopup__form');
+
+
+// const placeFormObj = {
+//   formName: "place-form",
+//   submitButtonSelector: ".addPopup__save-button",
+//   inputSelector: ".popup__form-input",
+// };
+// const avatarFormObj = {
+//   formName: "avatar-form",
+//   submitButtonSelector: ".avatarPopup__save-button",
+//   inputSelector: ".popup__form-input",
+// };
 const config = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
   headers: {
@@ -98,9 +128,7 @@ export {
   imagePopupImage,
   imagePopupExit,
   userFormObj,
-  placeFormObj,
   config,
-  avatarFormObj,
   avatarPopup,
   avatarPopupInput,
   avatarContainer,
@@ -111,4 +139,8 @@ export {
   profileConfig,
   configValidate,
   popupList,
+  userFormInstance,
+  placeFormInstance,
+  avatarFormInstance
+
 };

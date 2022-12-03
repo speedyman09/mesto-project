@@ -39,11 +39,11 @@ import {
   avatarImageSelector,
   profileConfig,
   configValidate,
-  placeFormObj,
-  userFormObj,
-  avatarFormObj,
   config,
   popupList,
+  avatarFormInstance,
+  placeFormInstance,
+  userFormInstance,
 } from "../Utils/constants";
 // import { createCard, } from "../scripts/card";
 //import { openPopup, closePopup } from "../scripts/modal";
@@ -54,17 +54,23 @@ import {
 
 //const api = new Api({  baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",  headers: {    authorization: "8f6991cb-ed06-4bec-89fd-92424de41418",    "Content-Type": "application/json",  },});
 
+avatarFormInstance.enableValidation();
+placeFormInstance.enableValidation();
+userFormInstance.enableValidation();
+
+
+
 const userInfo = new UserInfo(profileConfig);
 
 const api = new Api(config);
 
-const setValidation = (formElement) => {
-  const popupValidator = new FormValidator(configValidate, formElement);
-  popupValidator.enableValidation();
-};
-popupList.forEach((popup) => {
-  setValidation(popup);
-});
+// const setValidation = (formElement) => {
+//   const popupValidator = new FormValidator(configValidate, formElement);
+//   popupValidator.enableValidation();
+// };
+// popupList.forEach((popup) => {
+//   setValidation(popup);
+// });
 
 const profilePopupForm = new PopupWithForm(
   ".profilePopup",
