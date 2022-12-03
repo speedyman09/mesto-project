@@ -67,8 +67,8 @@ const postCard = function (cardInputName, cardInputLink) {
   }).then(checkData);
 };
 
-const deleteLike = function (cardObj) {
-  return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
+const deleteLike = function (id) {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: "DELETE",
     headers: {
       authorization: config.headers.authorization,
@@ -76,8 +76,8 @@ const deleteLike = function (cardObj) {
   }).then(checkData);
 };
 
-const putLike = function (cardObj) {
-  return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
+const putLike = function (id) {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: "PUT",
     headers: {
       authorization: config.headers.authorization,

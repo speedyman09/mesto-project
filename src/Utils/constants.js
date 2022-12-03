@@ -80,6 +80,7 @@ const profileConfig = {
   profileBioSelector: ".profile__description",
   avatarImageSelector: ".profile__avatar",
 };
+
 export {
   profile,
   popupExit,
@@ -116,5 +117,5 @@ export {
   card,
   profileConfig,
   configValidate,
-  popupList,
+  popupList
 };
