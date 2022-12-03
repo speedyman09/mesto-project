@@ -6,7 +6,6 @@ const cardTemplateSelector = document
   .querySelector(".card-template")
   .content.querySelector("article");
 
-const popupExit = document.querySelector(".popup__exit");
 const cardPopupExit = document.querySelector(".addPopup__exit");
 const imagePopupExit = document.querySelector(".imagePopup__exit");
 const avatarPopupExit = document.querySelector(".avatarPopup__exit");

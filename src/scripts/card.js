@@ -4,7 +4,7 @@ import {
   cardInputName,
   cardInputLink,
   cardPopup,
-  imagePopup,
+  imagePopupSel,
   imagePopupImage,
   imagePopupText,
   cardTemplateSelector,
@@ -46,7 +46,7 @@ const createCard = (item, likeButtonHandler) => {
     imagePopupImage.src = item.link;
     imagePopupImage.alt = item.name;
     imagePopupText.textContent = item.name;
-    openPopup(imagePopup);
+    openPopup(imagePopupSel);
   });
 
   likeNumber.textContent = item.likes.length;

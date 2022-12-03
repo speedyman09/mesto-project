@@ -1,8 +1,8 @@
 /* add css in webpack */
 import "./../pages/index.css";
-import Api from "../components/API.js";
-import FormValidator from "../components/FormValidator";
-import Section from "../components/Section";
+import Api from "../components/API";
+//import FormValidator from "../components/FormValidator";
+//import Section from "../components/Section";
 //import Card from "../components/Сard";
 import UserInfo from "../components/UserInfo";
 //import Popup from "../components/Popup";
@@ -26,7 +26,7 @@ import {
   cardsContainer,
   cardInputName,
   cardInputLink,
-  imagePopupSel,
+  imagePopup,
   imagePopupText,
   imagePopupImage,
   imagePopupExit,
@@ -37,20 +37,16 @@ import {
   avatarPopupForm,
   avatarImageSelector,
   profileConfig,
-  popupList,
-} from "../Utils/constants";
-import { createCard } from "../scripts/card";
-import { openPopup, closePopup } from "../scripts/modal";
-// import {editProfileSubmitter, avatarSubmitter,} from './utils';
-import {
   configValidate,
   placeFormObj,
   userFormObj,
   avatarFormObj,
-  config,
-  popupList,
 } from "../Utils/constants";
-//import { validateForm, prepareOnOpen } from "../scripts/validate";
+import { createCard } from "../scripts/card";
+import { openPopup, closePopup } from "../scripts/modal";
+// import {editProfileSubmitter, avatarSubmitter,} from './utils';
+
+import { validateForm, prepareOnOpen } from "../scripts/validate";
 import { closeByEscape, closePopupChecker } from "../scripts/modal";
 import {
   getProfileInfo,
@@ -69,42 +65,12 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-
 const userinfo = new UserInfo(profileConfig);
 
-const setValidation = (formElement) => {
-  const popupValidator = new FormValidator(configValidate, formElement);
-  popupValidator.enableValidation();
-};
-popupList.forEach((popup) => {
-  setValidation(popup);
-});
+//const api = new Api(config);
+//const setValidation = formElement => {  const popupValidator = new FormValidator(configValidate, formElement);  popupValidator.enableValidation();};
 
-const profilePopupForm = new PopupWithForm(
-  ".profilePopup",
-  editProfileSubmitter
-);
-const avatarPopupInstance = new PopupWithForm(".avatarPopup", avatarSubmitter);
-const popupImage = new PopupWithImage(imagePopupSel);
-
-// -----новая карточка
-const createNewCard = (data) => {
-  const card = new Card(data, userInfo.userId, cardTemplateSelector);
-  return card;
-};
-
-// ---отрисовка карточек
-const cards = new Section(
-  {
-    renderer: (item) => {
-      const card = createNewCard(item);
-      const cardElement = card.createCard();
-      return cardElement;
-    },
-  },
-  cardsContainer
-);
-//----
+//popupList.forEach(popup => {   setValidation(popup); });
 
 const editProfile = (values) => {
   profileNameSelector.textContent = values.name;
@@ -141,6 +107,40 @@ const avatarSubmitter = (e) => {
       console.log(err);
     });
 };
+const profilePopupForm = new PopupWithForm(
+  ".profilePopup",
+  editProfileSubmitter
+);
+const avatarPopupInstance = new PopupWithForm(".avatarPopup", avatarSubmitter);
+const removeCard = (card) => {
+  deleteRemovedCard(card.dataset.id)
+    .then(() => {
+      card.remove();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+const sendCardToServer = (cardInputName, cardInputLink) => {
+  return postCard(cardInputName, cardInputLink)
+    .then((item) => {
+      const card = createCard(item, likeButtonHandler);
+      cardsContainer.prepend(card);
+      closePopup(cardPopup);
+      cardForm.reset();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+const addCard = (e) => {
+  e.preventDefault();
+  const cardValues = {
+    name: cardInputName.value,
+    link: cardInputLink.value,
+  };
+  sendCardToServer(cardInputName, cardInputLink);
+};
 const likeButtonHandler = (item, likedByMe, successFunc) => {
   likedByMe
     ? deleteLike(item)
@@ -154,15 +154,22 @@ const likeButtonHandler = (item, likedByMe, successFunc) => {
           console.error(err);
         });
 };
-
-//Promise.all([getProfileInfo(), initialCards()])  .then((values) => {    editProfile(values[0]);    localStorage.setItem("me_id", values[0]._id);    editAvatar(values[0].avatar);    values[1].forEach(function (cardObj) {      const card = createCard(cardObj, likeButtonHandler);      cardsContainer.append(card);    });  })  .catch((err) => {    console.error(err);  });
-
-//FormValidator(userFormObj);
-
-//FormValidator(placeFormObj);
-
-//FormValidator(avatarFormObj);
-
+Promise.all([getProfileInfo(), initialCards()])
+  .then((values) => {
+    editProfile(values[0]);
+    localStorage.setItem("me_id", values[0]._id);
+    editAvatar(values[0].avatar);
+    values[1].forEach(function (cardObj) {
+      const card = createCard(cardObj, likeButtonHandler);
+      cardsContainer.append(card);
+    });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+validateForm(userFormObj);
+validateForm(placeFormObj);
+validateForm(avatarFormObj);
 avatarContainer.addEventListener("click", () => {
   openPopup(avatarPopup);
 });
@@ -171,7 +178,7 @@ avatarPopupExit.addEventListener("click", () => {
   closePopup(avatarPopup);
 });
 imagePopupExit.addEventListener("click", () => {
-  closePopup(imagePopup);
+  closePopup(imagePopupSel);
 });
 document
   .querySelector("#editForm")
@@ -180,7 +187,7 @@ profileEditButton.addEventListener("click", () => {
   profilePopupName.value = profileNameSelector.textContent;
   profilePopupBio.value = profileBioSelector.textContent;
   openPopup(profilePopup);
-  //prepareOnOpen(userFormObj);
+  prepareOnOpen(userFormObj);
 });
 popupExit.addEventListener("click", () => {
   closePopup(profilePopup);
@@ -190,11 +197,9 @@ cardPopupExit.addEventListener("click", () => {
 });
 profileAddButton.addEventListener("click", () => {
   openPopup(cardPopup);
-  // prepareOnOpen(placeFormObj);
+  prepareOnOpen(placeFormObj);
 });
-
-cardForm.addEventListener("submit", addCard);
-
+document.querySelector("#addForm").addEventListener("submit", addCard);
 document.querySelector(".popup").addEventListener("mousedown", (evt) => {
   if (document.querySelector(".popup_opened")) {
     closePopupChecker(evt);
@@ -205,7 +210,7 @@ document.querySelector(".addPopup").addEventListener("mousedown", (evt) => {
     closePopupChecker(evt);
   }
 });
-imagePopup.addEventListener("mousedown", (evt) => {
+imagePopupSel.addEventListener("mousedown", (evt) => {
   if (document.querySelector(".popup_opened")) {
     closePopupChecker(evt);
   }
