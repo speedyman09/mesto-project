@@ -14,9 +14,9 @@
 //её в контейнер.
 
 export default class Section {
-  constructor({ renderer }, cardsContainer) {
+  constructor({ renderer }, elementContainer) {
     this._renderer = renderer;
-    this._container = document.querySelector(cardsContainer);
+    this._container = document.querySelector(elementContainer);
   }
 
   renderItems(items) {

@@ -87,10 +87,25 @@ export function enableSubmitButton(submitForm, configValidate) {
   submitForm.removeAttribute("disabled");
   submitForm.classList.remove(configValidate.inactiveButtonClass);
 }
+// export const config = {
+//   baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
+//   headers: {
+//     authorization: "703c9790-16d9-4dc9-84fc-515962733489",
+//     "Content-Type": "application/json",
+//   },
+// };
+
 export const config = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
   headers: {
-    authorization: "703c9790-16d9-4dc9-84fc-515962733489",
+    authorization: "8f6991cb-ed06-4bec-89fd-92424de41418",
     "Content-Type": "application/json",
   },
 };
+const profileConfig = {
+  profileNameSelector: ".profile__name",
+  profileBioSelector: ".profile__description",
+  avatarImageSelector: ".profile__avatar",
+};
+
+export const popupList = Array.from(document.querySelectorAll(".popup"));

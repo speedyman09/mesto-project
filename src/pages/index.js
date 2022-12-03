@@ -35,6 +35,7 @@ import {
   config,
   configValidate,
   disableSubmitButton,
+  popupList,
 } from "../Utils/Constants";
 
 // import { openPopup, closePopup } from "../components/modal";
@@ -77,10 +78,10 @@ const cards = new Section(
       return cardElement;
     },
   },
-  containerSelector
+  elementContainer
 );
 
-// ---------------------------------------загрузка данных с сервера
+// ----------загрузка данных с сервера
 
 const userInfo = new UserInfo({
   userNameSelector,
@@ -183,7 +184,7 @@ function addNewCard(evt) {
 }
 
 function renderPage() {
-  Promise.all([getUserInfoServer(), getInitialCards()])
+  Promise.all([getProfileInfo(), createCard()])
     .then((result) => {
       const user = result[0];
       userID = user._id;

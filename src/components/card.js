@@ -44,11 +44,11 @@ export default class Card {
   //создать элемент
   createCard() {
     this._card = this._getTemplate();
-    this._image = this._card.querySelector(".cards__image");
-    this._title = this._card.querySelector(".cards__text");
-    this._likeNumber = this._card.querySelector(".cards__like-number");
-    this._like = this._card.querySelector(".cards__like");
-    this._deleteButton = this._card.querySelector(".cards__delete");
+    this._image = this._card.querySelector(".element__image");
+    this._title = this._card.querySelector(".element__title");
+    this._likeNumber = this._card.querySelector(".element__like-counter");
+    this._like = this._card.querySelector(".element__like-button");
+    this._deleteButton = this._card.querySelector(".element__delete-button");
 
     this._image.src = this._link;
     this._image.alt = this._name;
@@ -77,25 +77,25 @@ export default class Card {
       }).length > 0;
     this._likeNumber.textContent = data.likes.length;
     if (this._isLiked) {
-      this._like.classList.add("cards__like_liked");
+      this._like.classList.add("element__like-button_active");
     } else {
-      this._like.classList.remove("cards__like_liked");
+      this._like.classList.remove("element__like-button_active");
     }
     this._toggleLikeContainer(data);
   }
 
   _toggleLikeContainer(data) {
     if (data.likes.length === 1)
-      this._likeNumber.classList.add("cards__like_liked");
+      this._likeNumber.classList.add("element__like-button_active");
     else if (data.likes.length === 0) {
-      this._likeNumber.classList.remove("cards__like_liked");
+      this._likeNumber.classList.remove("element__like-button_active");
     }
   }
   //удалить лайк
   _setDeleteButtonState() {
     if (this._ownerId === this._currentUserId) {
       this._deleteButton.addEventListener("click", (e) => {
-        const card = e.target.closest(".cards__card");
+        const card = e.target.closest(".elements");
         removeCard(card);
       });
     } else {
@@ -106,10 +106,10 @@ export default class Card {
   //посчитать лайки
   _setLikeState() {
     if (this._likes.length > 0) {
-      this._likeNumber.classList.add("cards__like_liked");
+      this._likeNumber.classList.add("element__like-button_active");
     }
     if (this._likes.some((item) => item._id === this._currentUserId)) {
-      this._like.classList.add("cards__like_liked");
+      this._like.classList.add("element__like-button_active");
       this._isLiked = true;
     }
   }
