@@ -87,24 +87,6 @@ const profilePopupForm = new PopupWithForm(
 const avatarPopupInstance = new PopupWithForm(".avatarPopup", avatarSubmitter);
 const popupImage = new PopupWithImage(imagePopupSel);
 
-//создали новую карточку
-const createNewCard = (data) => {
-  const card = new Card(data, userInfo.userId, cardTemplateSelector);
-  return card;
-};
-
-//нарисовали на странице новую карточку
-const cards = new Section(
-  {
-    renderer: (item) => {
-      const card = createNewCard(item);
-      const cardElement = card.createCard();
-      return cardElement;
-    },
-  },
-  cardsContainer
-);
-
 // -----новая карточка
 const createNewCard = (data) => {
   const card = new Card(data, userInfo.userId, cardTemplateSelector);
