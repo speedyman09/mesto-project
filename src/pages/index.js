@@ -37,7 +37,7 @@ import {
   config,
   configValidate,
   disableSubmitButton,
-} from "../components/utils";
+} from "../Utils/Constants";
 
 import { openPopup, closePopup } from "../components/modal";
 
@@ -45,7 +45,7 @@ import {
   createCard,
   changeLikeStatus,
   isCardLikeButtonActive,
-} from "../components/card";
+} from "../components/Card";
 
 import {
   getInitialCards,
