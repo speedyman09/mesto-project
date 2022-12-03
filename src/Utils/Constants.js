@@ -68,9 +68,9 @@ export function returnRenderLoading(submitForm) {
   submitForm.textContent = "Сохранение";
 }
 
-export { config, configValidate, enableValidation, disableSubmitButton };
+// export { config, configValidate, enableValidation, disableSubmitButton };
 
-const configValidate = {
+export const configValidate = {
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit",
@@ -79,15 +79,15 @@ const configValidate = {
   inactiveButtonClass: "form__submit_disabled",
 };
 
-function disableSubmitButton(submitForm, configValidate) {
+export function disableSubmitButton(submitForm, configValidate) {
   submitForm.setAttribute("disabled", "");
   submitForm.classList.add(configValidate.inactiveButtonClass);
 }
-function enableSubmitButton(submitForm, configValidate) {
+export function enableSubmitButton(submitForm, configValidate) {
   submitForm.removeAttribute("disabled");
   submitForm.classList.remove(configValidate.inactiveButtonClass);
 }
-const config = {
+export const config = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
   headers: {
     authorization: "703c9790-16d9-4dc9-84fc-515962733489",

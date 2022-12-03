@@ -2,12 +2,10 @@ import "./index.css";
 import Api from "../components/API";
 import FormValidator from "../components/FormValidator";
 import Section from "../components/Section";
-import Card from "../components/Сard";
+import Card from "../components/card";
 import UserInfo from "../components/UserInfo";
-import ImageLoader from "../components/ImageLoader";
 import PopupWithImage from "../components/PopupWithImage";
 import PopupWithForm from "../components/PopupWithForm";
-import PopupWithConfirm from "../components/PopupWithConfirm";
 // ---------------------------------------------------------variables
 
 import {
@@ -39,24 +37,24 @@ import {
   disableSubmitButton,
 } from "../Utils/Constants";
 
-import { openPopup, closePopup } from "../components/modal";
+// import { openPopup, closePopup } from "../components/modal";
 
-import {
-  createCard,
-  changeLikeStatus,
-  isCardLikeButtonActive,
-} from "../components/Card";
+// import {
+//   createCard,
+//   changeLikeStatus,
+//   isCardLikeButtonActive,
+// } from "../components/Card";
 
-import {
-  getInitialCards,
-  postElementServer,
-  getUserInfoServer,
-  postUserInfoServer,
-  deleteElementServer,
-  changeAvatarServer,
-  putLikeElementServer,
-  deleteLikeElementServer,
-} from "../components/api";
+// import {
+//   getInitialCards,
+//   postElementServer,
+//   getUserInfoServer,
+//   postUserInfoServer,
+//   deleteElementServer,
+//   changeAvatarServer,
+//   putLikeElementServer,
+//   deleteLikeElementServer,
+// } from "../components/api";
 
 let userID = "";
 const cardsArray = [];
@@ -70,6 +68,35 @@ const setValidation = (formElement) => {
 popupList.forEach((popup) => {
   setValidation(popup);
 });
+
+const cards = new Section(
+  {
+    renderer: (item) => {
+      const card = createNewCard(item);
+      const cardElement = card.createCard();
+      return cardElement;
+    },
+  },
+  containerSelector
+);
+
+// ---------------------------------------загрузка данных с сервера
+
+const userInfo = new UserInfo({
+  userNameSelector,
+  userCaptionSelector,
+  userAvatarSelector,
+});
+
+api
+  .loadData()
+  .then((data) => {
+    const [userData, cardsData] = data;
+    userInfo.setUserInfo(userData);
+    avatarImageLoader.initialize();
+    cards.renderItems(cardsData);
+  })
+  .catch((err) => console.log(err));
 
 // функция обновления фото пользователя
 function renderUserAvatar(avatar) {
