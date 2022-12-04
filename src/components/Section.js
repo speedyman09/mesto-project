@@ -14,7 +14,8 @@
 //её в контейнер.
 
 export default class Section {
-  constructor({ renderer }, elementContainer) {
+  constructor({ items, renderer }, elementContainer) {
+    this._initialItems = items;
     this._renderer = renderer;
     this._container = document.querySelector(elementContainer);
   }
