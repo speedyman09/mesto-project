@@ -1,10 +1,13 @@
-import {
-    deleteLike,
-    putLike,
-    deleteRemovedCard,
-  } from "../scripts/api";
-
+import Api from "../components/API";
 import PopupWithImage from "../components/PopupWithImage";
+
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
+  headers: {
+    authorization: "8f6991cb-ed06-4bec-89fd-92424de41418",
+    "Content-Type": "application/json",
+  },
+});
 
 const handleCardClick = ({name, link}) => {
     const popup = new PopupWithImage(".imagePopup");
@@ -12,7 +15,7 @@ const handleCardClick = ({name, link}) => {
   };
   
   const handleCardDelete = (card, successFunc) => {
-    deleteRemovedCard(card.dataset.id)
+    api.deleteRemovedCard(card.dataset.id)
     .then(successFunc)
     .catch((err) => {
       console.error(err);
@@ -21,17 +24,15 @@ const handleCardClick = ({name, link}) => {
   
   const handleLikeClick = (card, likedByMe, successFunc) => {
     likedByMe
-      ? deleteLike(card.dataset.id)
+      ? api.deleteLike(card.dataset.id)
           .then((card) => {
-            console.log("Like has been deleted;")
             successFunc(card);
           })
           .catch((err) => {
             console.error(err);
           })
-      : putLike(card.dataset.id)
+      : api.putLike(card.dataset.id)
           .then((card) => {
-            console.log("Like has been put;")
             successFunc(card);
           })
           .catch((err) => {

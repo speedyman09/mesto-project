@@ -4,7 +4,6 @@ export default class FormValidator {
       inputSelector,
       submitButtonSelector,
       inactiveButtonClass,
-      inputErrorClass,
       errorClass,
     },
     formElement
@@ -12,36 +11,46 @@ export default class FormValidator {
     this._inputSelector = inputSelector;
     this._submitButtonSelector = submitButtonSelector;
     this._inactiveButtonClass = inactiveButtonClass;
-    this._inputErrorClass = inputErrorClass;
     this._errorClass = errorClass;
     this._formElement = document.querySelector(formElement);
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)
     );
-    // this._buttonElement = this._formElement.querySelector(      this._submitButtonSelector    );
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
   }
 
-  _showInputError(inputElement, errorMessage) {
+  _showInputError(inputElement) {
     const errorElement = this._formElement.querySelector(
-      `.${inputElement.id}-error`
+      `#${inputElement.name}-error`
     );
-    inputElement.classList.add(this._inputErrorClass);
-    errorElement.textContent = errorMessage;
+    errorElement.textContent = this._customErrorMessage(inputElement);
     errorElement.classList.add(this._errorClass);
   }
 
   _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(
-      `.${inputElement.id}-error`
+      `#${inputElement.name}-error`
     );
-    inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = "";
   }
 
+  _customErrorMessage(elem) {
+
+    if(elem.validity.valid) {
+      return "";
+    }
+
+    if (elem.validity.patternMismatch && elem.dataset.mismatch) {
+      return elem.dataset.mismatch;
+    } 
+
+    return elem.validationMessage;
+  }
+
   _isValid(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(inputElement, inputElement.validationMessage);
+      this._showInputError(inputElement);
     } else {
       this._hideInputError(inputElement);
     }

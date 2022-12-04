@@ -7,8 +7,14 @@ export default class Popup {
     this._setEventListeners();
   }
   _setEventListeners() {
-    this.closeButton.addEventListener('mousedown', () => this.close);
-    this.popupElem.addEventListener('mousedown', () => this.close);
+    this.closeButton.addEventListener('mousedown', () => this.close());
+    this.popupElem.addEventListener('mousedown', (evt) => {
+
+      if (evt.target === this.popupElem) {
+        this.close();
+      }
+
+    });
   }
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
