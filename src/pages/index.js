@@ -68,9 +68,9 @@ const avatarSubmitter = (e) => {
     .then(() => {
       userinfo.setUserAvatar(link);
       avatarPopupInstance.close();
-      setTimeout(() => {
-        avatarPopupInput.value = "";
-      }, 500);
+      // setTimeout(() => {
+      //   avatarPopupInput.value = "";
+      // }, 500);
     })
     .catch((err) => {
       console.log(err);
@@ -107,10 +107,10 @@ const sendCardToServer = (cardInputName, cardInputLink) => {
       section.addItem(item);
 
       cardPopupInstance.close();
-      setTimeout(() => {
-        // visual effect
-        cardForm.reset();
-      }, 500);
+      // setTimeout(() => {
+      //   // visual effect
+      //   cardForm.reset();
+      // }, 500);
     })
     .catch((err) => {
       console.error(err);
