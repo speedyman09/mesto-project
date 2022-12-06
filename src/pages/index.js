@@ -102,7 +102,7 @@ const section = new Section(".cards", (item) => {
 
 const sendCardToServer = (cardInputName, cardInputLink) => {
   return api
-    .postCard({ title: cardInputName.value, link: cardInputLink.value })
+    .postCard({ title: cardInputName, link: cardInputLink })
     .then((item) => {
       section.addItem(item);
 
@@ -117,13 +117,9 @@ const sendCardToServer = (cardInputName, cardInputLink) => {
     });
 };
 
-const addCard = (e) => {
+const addCard = (e, inputs) => {
   e.preventDefault();
-  const cardValues = {
-    name: cardInputName.value,
-    link: cardInputLink.value,
-  };
-  sendCardToServer(cardInputName, cardInputLink);
+  sendCardToServer(inputs['input-title'], inputs['input-link']);
 };
 
 const cardPopupInstance = new PopupWithForm(".addPopup", addCard);
