@@ -125,12 +125,12 @@ const addCard = (e, inputs) => {
 const cardPopupInstance = new PopupWithForm(".addPopup", addCard);
 
 Promise.all([api.getProfileInfo(), api.initialCards()])
-  .then((values) => {
-    editProfile(values[0]);
-    localStorage.setItem("me_id", values[0]._id);
-    editAvatar(values[0].avatar);
+  .then(([userData, cards]) => {
+    editProfile(userData);
+    localStorage.setItem("me_id", userData._id);
+    editAvatar(userData.avatar);
 
-    section.renderItems(values[1]);
+    section.renderItems(cards);
   })
   .catch((err) => {
     console.error(err);
