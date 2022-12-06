@@ -9,9 +9,10 @@ const api = new Api({
   },
 });
 
+const imagePopup = new PopupWithImage(".imagePopup");
+
 const handleCardClick = ({name, link}) => {
-    const popup = new PopupWithImage(".imagePopup");
-    popup.open(name, link);
+    imagePopup.open(name, link);
   };
   
   const handleCardDelete = (card, successFunc) => {
