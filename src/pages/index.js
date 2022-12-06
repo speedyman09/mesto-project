@@ -180,9 +180,9 @@ profileEditButton.addEventListener("click", () => {
 
 // cards form
 
-cardPopupExit.addEventListener("click", () => {
-  cardPopupInstance.close();
-});
+// cardPopupExit.addEventListener("click", () => {
+//   cardPopupInstance.close();
+// });
 
 // add new card button
 profileAddButton.addEventListener("click", () => {
