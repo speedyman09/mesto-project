@@ -29,7 +29,6 @@ import {
   handleLikeClick,
 } from "../Utils/cardHandlers";
 
-
 import Card from "../components/Card";
 import PopupWithImage from "../components/PopupWithImage";
 const api = new Api({
@@ -40,7 +39,6 @@ const api = new Api({
   },
 });
 const userinfo = new UserInfo(profileConfig);
-
 
 const editProfile = (values) => {
   profileNameSelector.textContent = values.name;
@@ -72,7 +70,7 @@ const avatarSubmitter = (e) => {
       avatarPopupInstance.close();
       setTimeout(() => {
         avatarPopupInput.value = "";
-      }, 500)
+      }, 500);
     })
     .catch((err) => {
       console.log(err);
@@ -84,29 +82,28 @@ const profilePopupForm = new PopupWithForm(
 );
 const avatarPopupInstance = new PopupWithForm(".avatarPopup", avatarSubmitter);
 
-const sendCardToServer = (cardInputName, cardInputLink) => {
-  return api.postCard({title: cardInputName.value, link: cardInputLink.value})
-    .then((item) => {
+const section = new Section(".cards", (item) => {
+  const card = new Card(
+    // data object
+    item,
+    // user id
+    localStorage.getItem("me_id"),
+    // card template selector
+    cardTemplateSelector,
+    {
+      handleCardClick,
+      handleCardDelete,
+      handleLikeClick,
+    }
+  );
 
-      const section = new Section(".cards", (item) => {
-      
-        const card = new Card(
-          // data object
-          item,
-          // user id
-          localStorage.getItem("me_id"),
-          // card template selector
-          cardTemplateSelector,
-          {
-            handleCardClick,
-            handleCardDelete,
-            handleLikeClick,
-          }
-        );
-  
-        return card.createCard();
-      });
-  
+  return card.createCard();
+});
+
+const sendCardToServer = (cardInputName, cardInputLink) => {
+  return api
+    .postCard({ title: cardInputName.value, link: cardInputLink.value })
+    .then((item) => {
       section.addItem(item);
 
       cardPopupInstance.close();
@@ -137,25 +134,6 @@ Promise.all([api.getProfileInfo(), api.initialCards()])
     localStorage.setItem("me_id", values[0]._id);
     editAvatar(values[0].avatar);
 
-    const section = new Section(".cards", (item) => {
-      
-      const card = new Card(
-        // data object
-        item,
-        // user id
-        values[0]._id,
-        // card template selector
-        cardTemplateSelector,
-        {
-          handleCardClick,
-          handleCardDelete,
-          handleLikeClick,
-        }
-      );
-
-      return card.createCard();
-    });
-
     section.renderItems(values[1]);
   })
   .catch((err) => {
@@ -171,23 +149,24 @@ const userFormValidation = new FormValidator(
   },
   ".popup__form"
 );
-const avatarFormValidation = new FormValidator({
+const avatarFormValidation = new FormValidator(
+  {
     inputSelector: ".popup__form-input",
     submitButtonSelector: ".avatarPopup__save-button",
     inactiveButtonClass: "popup__form-input_disabled",
     errorClass: "popup__form-error_active",
   },
-  '.avatarPopup__form'
+  ".avatarPopup__form"
 );
-const cardFormValidation = new FormValidator({
+const cardFormValidation = new FormValidator(
+  {
     inputSelector: ".popup__form-input",
     submitButtonSelector: ".addPopup__save-button",
     inactiveButtonClass: "popup__form-input_disabled",
     errorClass: "popup__form-error_active",
   },
-  '.addPopup__form'
+  ".addPopup__form"
 );
-
 
 userFormValidation.enableValidation();
 avatarFormValidation.enableValidation();
@@ -213,7 +192,5 @@ cardPopupExit.addEventListener("click", () => {
 profileAddButton.addEventListener("click", () => {
   cardPopupInstance.open();
 });
-
-
 
 export { editProfile, sendCardToServer };
