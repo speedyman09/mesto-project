@@ -47,9 +47,9 @@ const editProfile = (values) => {
 const editAvatar = (avatarUrl) => {
   avatarImageSelector.src = avatarUrl;
 };
-const editProfileSubmitter = (e) => {
+const editProfileSubmitter = (e, inputs) => {
   e.preventDefault();
-  const data = { name: profilePopupName.value, about: profilePopupBio.value };
+  const data = { name: inputs['user-name'], about: inputs['input-description'] };
   api
     .patchProfile(data)
     .then(() => {
