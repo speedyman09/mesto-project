@@ -60,9 +60,9 @@ const editProfileSubmitter = (e, inputs) => {
       console.error(err);
     });
 };
-const avatarSubmitter = (e) => {
-  e.preventDefault();
-  const link = { avatar: avatarPopupInput.value };
+const avatarSubmitter = (e, inputs) => {
+  e.preventDefault(); 
+  const link = { avatar: inputs['input-avatar']};
   api
     .patchAvatar(link)
     .then(() => {
