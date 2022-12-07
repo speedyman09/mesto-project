@@ -49,7 +49,10 @@ const editAvatar = (avatarUrl) => {
 };
 const editProfileSubmitter = (e, inputs) => {
   e.preventDefault();
-  const data = { name: inputs['user-name'], about: inputs['input-description'] };
+  const data = {
+    name: inputs["user-name"],
+    about: inputs["input-description"],
+  };
   api
     .patchProfile(data)
     .then(() => {
@@ -61,8 +64,8 @@ const editProfileSubmitter = (e, inputs) => {
     });
 };
 const avatarSubmitter = (e, inputs) => {
-  e.preventDefault(); 
-  const link = { avatar: inputs['input-avatar']};
+  e.preventDefault();
+  const link = { avatar: inputs["input-avatar"] };
   api
     .patchAvatar(link)
     .then(() => {
@@ -119,7 +122,7 @@ const sendCardToServer = (cardInputName, cardInputLink) => {
 
 const addCard = (e, inputs) => {
   e.preventDefault();
-  sendCardToServer(inputs['input-title'], inputs['input-link']);
+  sendCardToServer(inputs["input-title"], inputs["input-link"]);
 };
 
 const cardPopupInstance = new PopupWithForm(".addPopup", addCard);
@@ -173,8 +176,10 @@ avatarContainer.addEventListener("click", () => {
 });
 
 profileEditButton.addEventListener("click", () => {
-  profilePopupName.value = profileNameSelector.textContent;
-  profilePopupBio.value = profileBioSelector.textContent;
+  const { about, name } = userinfo.getUserInfo();
+  profilePopupName.value = name;
+  profilePopupBio.value = about;
+
   profilePopupForm.open();
 });
 
