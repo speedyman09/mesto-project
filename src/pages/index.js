@@ -40,13 +40,13 @@ const api = new Api({
 });
 const userinfo = new UserInfo(profileConfig);
 
-const editProfile = (values) => {
-  profileNameSelector.textContent = values.name;
-  profileBioSelector.textContent = values.about;
-};
-const editAvatar = (avatarUrl) => {
-  avatarImageSelector.src = avatarUrl;
-};
+// const editProfile = (values) => {
+//   profileNameSelector.textContent = values.name;
+//   profileBioSelector.textContent = values.about;
+// };
+// const editAvatar = (avatarUrl) => {
+//   avatarImageSelector.src = avatarUrl;
+// };
 const editProfileSubmitter = (e, inputs) => {
   e.preventDefault();
   const data = {
@@ -129,9 +129,10 @@ const cardPopupInstance = new PopupWithForm(".addPopup", addCard);
 
 Promise.all([api.getProfileInfo(), api.initialCards()])
   .then(([userData, cards]) => {
-    editProfile(userData);
+    userinfo.setUserInfo(userData);
+
     localStorage.setItem("me_id", userData._id);
-    editAvatar(userData.avatar);
+    userinfo.setUserAvatar(userData);
 
     section.renderItems(cards);
   })
@@ -194,4 +195,4 @@ profileAddButton.addEventListener("click", () => {
   cardPopupInstance.open();
 });
 
-export { editProfile, sendCardToServer };
+export { sendCardToServer };
