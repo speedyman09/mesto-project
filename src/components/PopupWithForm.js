@@ -1,9 +1,8 @@
 import Popup from "./Popup";
 export default class PopupWithForm extends Popup {
   constructor(selector, callback) {
-
     super(selector);
-    
+
     this._callback = callback;
     this._formPopup = this.popupElem.querySelector(".popup__form");
     this._inputList = this.popupElem.querySelectorAll(".popup__form-input");
@@ -17,7 +16,7 @@ export default class PopupWithForm extends Popup {
     // this._inputList.forEach((item) => {
     //   inputValuesList.push(item.value);
     // });
-    this._inputList.forEach(input => {
+    this._inputList.forEach((input) => {
       this._inputValuesList[input.name] = input.value;
     });
     return this._inputValuesList;
@@ -32,9 +31,16 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    setTimeout(()=>{
+    setTimeout(() => {
       this._formPopup.reset();
     }, 500);
-    
+    this._initialText = this._button.value;
+    this._button.textContent = "Сохранение...";
+  }
+  open() {
+    super.open();
+
+    this._initialText = this._button.value;
+    this._button.textContent = "Сохранение";
   }
 }
