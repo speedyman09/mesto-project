@@ -9,18 +9,11 @@ import {
   profileEditButton,
   profilePopupName,
   profilePopupBio,
-  profileNameSelector,
-  profileBioSelector,
-  cardForm,
-  cardPopupExit,
   profileAddButton,
   cardTemplateSelector,
-  cardInputName,
-  cardInputLink,
-  avatarPopupInput,
   avatarContainer,
-  avatarImageSelector,
   profileConfig,
+  configValidate,
 } from "../Utils/constants";
 
 import {
@@ -30,7 +23,6 @@ import {
 } from "../Utils/cardHandlers";
 
 import Card from "../components/Card";
-import PopupWithImage from "../components/PopupWithImage";
 const api = new Api({
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-16",
   headers: {
@@ -140,37 +132,23 @@ Promise.all([api.getProfileInfo(), api.initialCards()])
     console.error(err);
   });
 
-const userFormValidation = new FormValidator(
-  {
-    inputSelector: ".popup__form-input",
-    submitButtonSelector: ".popup__save-button",
-    inactiveButtonClass: "popup__form-input_disabled",
-    errorClass: "popup__form-error_active",
-  },
-  ".popup__form"
-);
-const avatarFormValidation = new FormValidator(
-  {
-    inputSelector: ".popup__form-input",
-    submitButtonSelector: ".avatarPopup__save-button",
-    inactiveButtonClass: "popup__form-input_disabled",
-    errorClass: "popup__form-error_active",
-  },
-  ".avatarPopup__form"
-);
-const cardFormValidation = new FormValidator(
-  {
-    inputSelector: ".popup__form-input",
-    submitButtonSelector: ".addPopup__save-button",
-    inactiveButtonClass: "popup__form-input_disabled",
-    errorClass: "popup__form-error_active",
-  },
-  ".addPopup__form"
-);
+const formValidators = {};
 
-userFormValidation.enableValidation();
-avatarFormValidation.enableValidation();
-cardFormValidation.enableValidation();
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(formElement, config);
+    // получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute("name");
+
+    // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(configValidate);
 
 avatarContainer.addEventListener("click", () => {
   avatarPopupInstance.open();

@@ -47,10 +47,8 @@ const configValidate = {
   formSelector: ".popup__form",
   inputSelector: ".popup__form-input",
   submitButtonSelector: ".popup__save-button",
-
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active",
-  inactiveButtonClass: "form__submit_disabled",
+  inactiveButtonClass: "popup__form-input_disabled",
+  errorClass: "popup__form-error_active",
 };
 
 const userFormObj = {
