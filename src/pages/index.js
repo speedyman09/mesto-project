@@ -105,7 +105,7 @@ const section = new Section(".cards", (item) => {
 });
 
 const sendCardToServer = (cardInputName, cardInputLink) => {
-  cardPopupInstance.renderLoading(true);
+  // cardPopupInstance.renderLoading(true);
   return api
     .postCard({ title: cardInputName, link: cardInputLink })
     .then((item) => {
@@ -119,10 +119,10 @@ const sendCardToServer = (cardInputName, cardInputLink) => {
     })
     .catch((err) => {
       console.error(err);
-    })
-    .finally(() => {
-      cardPopupInstance.renderLoading(false);
     });
+  // .finally(() => {
+  //   renderLoading(false);
+  // });
 };
 
 const addCard = (e, inputs) => {
