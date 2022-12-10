@@ -32,20 +32,13 @@ const api = new Api({
 });
 const userinfo = new UserInfo(profileConfig);
 
-// const editProfile = (values) => {
-//   profileNameSelector.textContent = values.name;
-//   profileBioSelector.textContent = values.about;
-// };
-// const editAvatar = (avatarUrl) => {
-//   avatarImageSelector.src = avatarUrl;
-// };
 const editProfileSubmitter = (e, inputs) => {
   e.preventDefault();
   const data = {
     name: inputs["user-name"],
     about: inputs["input-description"],
   };
-  // profilePopupForm.renderLoading(true);
+  profilePopupForm.renderLoading(true);
   api
     .patchProfile(data)
     .then(() => {
@@ -54,10 +47,10 @@ const editProfileSubmitter = (e, inputs) => {
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      profilePopupForm.renderLoading(false);
     });
-  // .finally(() => {
-  //   profilePopupForm.renderLoading(false);
-  // });
 };
 const avatarSubmitter = (e, inputs) => {
   e.preventDefault();
@@ -69,9 +62,6 @@ const avatarSubmitter = (e, inputs) => {
     .then(() => {
       userinfo.setUserAvatar(link);
       avatarPopupInstance.close();
-      // setTimeout(() => {
-      //   avatarPopupInput.value = "";
-      // }, 500);
     })
     .catch((err) => {
       console.log(err);

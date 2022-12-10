@@ -12,11 +12,8 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    // const inputValuesList = [];
     this._inputValuesList = {};
-    // this._inputList.forEach((item) => {
-    //   inputValuesList.push(item.value);
-    // });
+
     this._inputList.forEach((input) => {
       this._inputValuesList[input.name] = input.value;
     });
@@ -33,9 +30,9 @@ export default class PopupWithForm extends Popup {
   // указываем 2 параметра (2й с текстом по умолчанию, чтобы не указывать лишний раз его)
   renderLoading(isLoading, loadingText = "Сохранение...") {
     if (isLoading) {
-      this._submitBtn.textContent = loadingText;
+      this._button.textContent = loadingText;
     } else {
-      this._submitBtn.textContent = this._submitBtnText;
+      this._button.textContent = this._submitBtnText;
     }
   }
 
@@ -44,13 +41,5 @@ export default class PopupWithForm extends Popup {
     setTimeout(() => {
       this._formPopup.reset();
     }, 500);
-    // this._initialText = this._button.value;
-    // this._button.textContent = "Сохранение...";
-  }
-  open() {
-    super.open();
-
-    // this._initialText = this._button.value;
-    // this._button.textContent = "Сохранение";
   }
 }
