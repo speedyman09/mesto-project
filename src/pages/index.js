@@ -55,7 +55,7 @@ const editProfileSubmitter = (e, inputs) => {
 const avatarSubmitter = (e, inputs) => {
   e.preventDefault();
   const link = { avatar: inputs["input-avatar"] };
-  // avatarPopupInstance.renderLoading(true);
+  avatarPopupInstance.renderLoading(true);
   api
 
     .patchAvatar(link)
@@ -65,10 +65,10 @@ const avatarSubmitter = (e, inputs) => {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      avatarPopupInstance.renderLoading(false);
     });
-  // .finally(() => {
-  //   avatarPopupInstance.renderLoading(false);
-  // });
 };
 const profilePopupForm = new PopupWithForm(
   ".profilePopup",
@@ -95,24 +95,20 @@ const section = new Section(".cards", (item) => {
 });
 
 const sendCardToServer = (cardInputName, cardInputLink) => {
-  // cardPopupInstance.renderLoading(true);
+  cardPopupInstance.renderLoading(true);
   return api
     .postCard({ title: cardInputName, link: cardInputLink })
     .then((item) => {
       section.addItem(item);
 
       cardPopupInstance.close();
-      // setTimeout(() => {
-      //   // visual effect
-      //   cardForm.reset();
-      // }, 500);
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      cardPopupInstance.renderLoading(false);
     });
-  // .finally(() => {
-  //   renderLoading(false);
-  // });
 };
 
 const addCard = (e, inputs) => {

@@ -3,7 +3,6 @@ export default class Popup {
     this.popupElem = document.querySelector(selector);
     this.closeButton = this.popupElem.querySelector(".popup__exit");
     this._handleEscClose = this._handleEscClose.bind(this);
-    this._btnName = this.popupElem.querySelector(".popup__save-button");
 
     this._setEventListeners();
   }
@@ -24,17 +23,9 @@ export default class Popup {
   open() {
     this.popupElem.classList.add("popup_opened");
     window.addEventListener("keydown", this._handleEscClose);
-    if (this._btnName !== null) {
-      this._initialText = this._btnName.textContent;
-      this._btnName.textContent = "Сохранение";
-    }
   }
   close() {
     this.popupElem.classList.remove("popup_opened");
     window.removeEventListener("keydown", this._handleEscClose);
-    if (this._btnName !== null) {
-      this._initialText = this._btnName.textContent;
-      this._btnName.textContent = "Сохранение...";
-    }
   }
 }
