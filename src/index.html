@@ -1,112 +1,252 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Mesto</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="html, css">
-    <meta name="description" content="Mesto">
-    <meta name="author" content="Степан Селюк">
-    <!-- <link rel="stylesheet" href="pages/index.css"> -->
-</head>
-<body class="root">
-<div class="page">
-    <header class="header">
-        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип">
-    </header>
-    <main>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="html, css" />
+    <meta name="description" content="Mesto" />
+    <meta name="author" content="Степан Селюк" />
+    <!-- <link rel="stylesheet" href="pages/index.css"> 
+    <script defer="defer" type="module" src="../src/pages/index.js"></script>-->
+  </head>
+  <body class="root">
+    <div class="page">
+      <header class="header">
+        <img
+          class="header__logo"
+          src="<%=require('./images/logo.svg')%>"
+          alt="Логотип"
+        />
+      </header>
+      <main>
         <section class="profile">
-            <button class="profile__avatar-container" type="button">
-                <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="Аватарка">
-            </button>
-            <div class="profile__details">
-                <div class="profile__caption">
-                    <h1 class="profile__name"></h1>
-                    <button class="profile__edit" type="button" aria-label="Изменить"></button>
-                </div>
-                <p class="profile__description"></p>
+          <button class="profile__avatar-container" type="button">
+            <img
+              class="profile__avatar"
+              src="<%=require('./images/Avatar.jpg')%>"
+              alt="Аватарка"
+            />
+          </button>
+          <div class="profile__details">
+            <div class="profile__caption">
+              <h1 class="profile__name"></h1>
+              <button
+                class="profile__edit"
+                type="button"
+                aria-label="Изменить"
+              ></button>
             </div>
-            <button class="profile__add-button" type="button" aria-label="Добавить"></button>
+            <p class="profile__description"></p>
+          </div>
+          <button
+            class="profile__add-button"
+            type="button"
+            aria-label="Добавить"
+          ></button>
         </section>
         <section class="cards">
-            <template class="card-template">
-             <article class="cards__card">
-                    <button class="cards__delete" type="button" aria-label="Удалить"></button>
+          <template class="card-template">
+            <article class="cards__card">
+              <button
+                class="cards__delete"
+                type="button"
+                aria-label="Удалить"
+              ></button>
 
-                    <img class="cards__image" src="images/kirill-pershin-1088404-unsplash_castle.jpg" alt="Карачаевск">
+              <img
+                class="cards__image"
+                src="images/kirill-pershin-1088404-unsplash_castle.jpg"
+                alt="Карачаевск"
+              />
 
-                    <div class="cards__description">
-                       <h2 class="cards__text"></h2>
-                       <div class="card__like-container">
-                         <button class="cards__like" type="button"></button>
-                         <p class="cards__like-number">#</p>    
-                       </div>    
-                    </div>
-              </article>
-            </template>
+              <div class="cards__description">
+                <h2 class="cards__text"></h2>
+                <div class="card__like-container">
+                  <button class="cards__like" type="button"></button>
+                  <p class="cards__like-number">#</p>
+                </div>
+              </div>
+            </article>
+          </template>
         </section>
-    </main>
-    <footer class="footer">
+      </main>
+      <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-    </footer>
-    <div class="popup profilePopup">
+      </footer>
+      <div class="popup profilePopup">
         <div class="popup__container">
-            <button class="popup__exit" type="button" aria-label="Закрыть"></button>
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__form" action="#" name="user-form" id="editForm">
-                <input class="popup__form-input" type="text" id="editForm1"
-                       name="user-name" placeholder="Имя" value="#" minlength="2" maxlength="30"
-                       required="" pattern="^[A-Za-zА-Яа-яЁё\-\s]+$" data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"/>
-                <span class="popup__form-error" id="user-name-error" data-onerror="popup__form-error_active">asdsdad</span>
-                <input class="popup__form-input" type="text" id="editForm2" name="input-description" placeholder="Вид деятельности"
-                       value="#" minlength="5"
-                       maxlength="100" required="" pattern="^[A-Za-zА-Яа-яЁё\-\s]+$" data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"/>
-                <span class="popup__form-error" id="input-description-error" data-onerror="popup__form-error_active">asdsdad</span>
-                <button class="popup__save-button" data-disabled="popup__form-input_disabled" data-default="Сохранить" type="submit">Сохранить</button>
-            </form>
+          <button
+            class="popup__exit"
+            type="button"
+            aria-label="Закрыть"
+          ></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form class="popup__form" action="#" name="user-form" id="editForm">
+            <input
+              class="popup__form-input"
+              type="text"
+              id="editForm1"
+              name="user-name"
+              placeholder="Имя"
+              value="#"
+              minlength="2"
+              maxlength="30"
+              required=""
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+              data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+            />
+            <span
+              class="popup__form-error"
+              id="user-name-error"
+              data-onerror="popup__form-error_active"
+              >asdsdad</span
+            >
+            <input
+              class="popup__form-input"
+              type="text"
+              id="editForm2"
+              name="input-description"
+              placeholder="Вид деятельности"
+              value="#"
+              minlength="5"
+              maxlength="100"
+              required=""
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+              data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+            />
+            <span
+              class="popup__form-error"
+              id="input-description-error"
+              data-onerror="popup__form-error_active"
+              >asdsdad</span
+            >
+            <button
+              class="popup__save-button"
+              data-disabled="popup__form-input_disabled"
+              data-default="Сохранить"
+              type="submit"
+            >
+              Сохранить
+            </button>
+          </form>
         </div>
-
-    </div>
-    <div class="popup addPopup">
+      </div>
+      <div class="popup addPopup">
         <div class="addPopup__container">
-            <button class="popup__exit addPopup__exit" type="button" aria-label="Закрыть"></button>
-            <h2 class="addPopup__title">Новое место</h2>
-            <form class="addPopup__form" action="#" name="place-form" id="addForm">
-                <input class="popup__form-input" type="text" id="addForm1"
-                       name="input-title" placeholder="Название" value="" minlength="2" maxlength="30"
-                       required="" pattern="^[A-Za-zА-Яа-яЁё\-\s]+$" data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"/>
-                <span class="popup__form-error" id="input-title-error" data-onerror="popup__form-error_active">asdsdad</span>
-                <input class="popup__form-input" type="url" id="addForm2" name="input-link" placeholder="Ссылка на картинку"
-                       value="" minlength="5"
-                       maxlength="600" required=""/>
-                <span class="popup__form-error" id="input-link-error" data-onerror="popup__form-error_active">sadsadas</span>
-                <button class="addPopup__save-button" data-disabled="popup__form-input_disabled" data-default="Сохранить" type="submit">Сохранить</button>              
-            </form>
+          <button
+            class="popup__exit addPopup__exit"
+            type="button"
+            aria-label="Закрыть"
+          ></button>
+          <h2 class="addPopup__title">Новое место</h2>
+          <form
+            class="popup__form addPopup__form"
+            action="#"
+            name="place-form"
+            id="addForm"
+          >
+            <input
+              class="popup__form-input"
+              type="text"
+              id="addForm1"
+              name="input-title"
+              placeholder="Название"
+              value=""
+              minlength="2"
+              maxlength="30"
+              required=""
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+              data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+            />
+            <span
+              class="popup__form-error"
+              id="input-title-error"
+              data-onerror="popup__form-error_active"
+              >asdsdad</span
+            >
+            <input
+              class="popup__form-input"
+              type="url"
+              id="addForm2"
+              name="input-link"
+              placeholder="Ссылка на картинку"
+              value=""
+              minlength="5"
+              maxlength="1000"
+              required=""
+            />
+            <span
+              class="popup__form-error"
+              id="input-link-error"
+              data-onerror="popup__form-error_active"
+              >sadsadas</span
+            >
+            <button
+              class="addPopup__save-button popup__save-button"
+              data-disabled="popup__form-input_disabled"
+              data-default="Сохранить"
+              type="submit"
+            >
+              Сохранить
+            </button>
+          </form>
         </div>
-    </div>
-    <div class="popup imagePopup">
+      </div>
+      <div class="popup imagePopup">
         <div class="imagePopup__container">
-            <button class="imagePopup__exit popup__exit" type="button"></button>
-            <img class="imagePopup__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' alt=''>
-            <p class="imagePopup__text">Placeholder</p>
+          <button class="imagePopup__exit popup__exit" type="button"></button>
+          <img
+            class="imagePopup__image"
+            src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+            alt=""
+          />
+          <p class="imagePopup__text">Placeholder</p>
         </div>
-    </div>
-    <div class="popup avatarPopup">
+      </div>
+      <div class="popup avatarPopup">
         <div class="avatarPopup__container">
-            <button class="popup__exit avatarPopup__exit" type="button" aria-label="Закрыть"></button>
-            <h2 class="avatarPopup__title">Обновить аватар</h2>
-            <form class="avatarPopup__form" action="#" name="avatar-form" id="avatar-form">
-                <input class="popup__form-input" id="avatarForm1" name="input-avatar" placeholder="Ссылка на картинку" 
-                value="" type="url" required="" minlength="5" maxlength="300"/>
-                <span class="popup__form-error" id="input-avatar-error" data-onerror="popup__form-error_active"></span>
-                <button class="avatarPopup__save-button" data-disabled="popup__form-input_disabled" data-default="Сохранить" type="submit">Сохранить</button>
-            </form>
+          <button
+            class="popup__exit avatarPopup__exit"
+            type="button"
+            aria-label="Закрыть"
+          ></button>
+          <h2 class="avatarPopup__title">Обновить аватар</h2>
+          <form
+            class="popup__form avatarPopup__form"
+            action="#"
+            name="avatar-form"
+            id="avatar-form"
+          >
+            <input
+              class="popup__form-input"
+              id="avatarForm1"
+              name="input-avatar"
+              placeholder="Ссылка на картинку"
+              value=""
+              type="url"
+              required=""
+              minlength="5"
+              maxlength="300"
+            />
+            <span
+              class="popup__form-error"
+              id="input-avatar-error"
+              data-onerror="popup__form-error_active"
+            ></span>
+            <button
+              class="avatarPopup__save-button popup__save-button"
+              data-disabled="popup__form-input_disabled"
+              data-default="Сохранить"
+              type="submit"
+            >
+              Сохранить
+            </button>
+          </form>
         </div>
+      </div>
     </div>
-</div>
 
-
-<!-- <script src="scripts/index.js"></script> -->
-
-</body>
+    <!-- <script src="scripts/index.js"></script> -->
+  </body>
 </html>
